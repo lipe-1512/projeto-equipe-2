@@ -1,12 +1,20 @@
-module PC (
+module Datapath (
     input clk,
-    input reset
+    input reset,
+    output [31:0] PC_out,
+    output [31:0] ALU_result_out,
+    output zero_flag,
+    output overflow_flag,
+    output Negativo_flag,
+    output Igual_flag,
+    output Maior_flag,
+    output Menor_flag
 );
 
 wire and_out;
 wire PCWrite;
 wire PCWriteCond;
-wire IorD;
+wire [1:0] IorD;
 wire MemWR;
 wire IRWrite;
 wire RegRs;
@@ -15,13 +23,13 @@ wire RegWrite;
 wire WrA;
 wire WrB;
 wire [1:0] ALUSrcA;
-wire [1:0] ALUSrcB;
+wire [2:0] ALUSrcB;
 wire [2:0] ALUControl;
 wire ALUOutCtrl;
 wire EPCCtrl;
 wire [2:0] PcSource;
 wire [1:0] Exception;
-wire [4:0] DataSrc;
+wire [2:0] DataSrc;
 wire LSControl;
 wire SSControl;
 wire MemDataWrite;
@@ -43,6 +51,33 @@ wire [31:0] B_out;
 wire [31:0] ALU_result;
 wire [31:0] ALUOut_out;
 wire [31:0] EPC_out;
+wire [31:0] HI_out;
+wire [31:0] LO_out;
+wire [31:0] Memory_out;
+wire [31:0] MemoryData_out;
+wire [31:0] SE_out;
+wire [31:0] Shift26_out;
+wire [31:0] ShiftedSE_out;
+wire [31:0] SignExt_out;
+wire [31:0] SignExt1_out;
+wire [31:0] RegRs_out;
+wire [4:0] ShiftAmt_out;
+wire [31:0] ShiftSrc_out;
+wire [31:0] Memory_address;
+wire [31:0] Exception_out;
+wire [31:0] ALUSrcA_out;
+wire [31:0] ALUSrcB_out;
+wire [4:0] WriteReg_out;
+wire [31:0] WriteData_out;
+wire [31:0] Shift_out;
+wire op404_flag;
+wire [5:0] OpCode;
+wire [5:0] Funct;
+wire zero, neg, lt, gt, et;
+wire reset_out;
+wire mult_ready, div_ready, div_zero_flag;
+wire [31:0] mult_hi, mult_lo, div_hi, div_lo;
+wire mult_start, div_start;
 
     portaAND AND_(
         .in0(PcSource_out),
@@ -212,12 +247,12 @@ wire [31:0] EPC_out;
         .out(PcSource_out)
     );
 
-    sEwithzero SE(
+    sEwithzero16x32 SE(
         .in(IR_out[15:0]),
         .out(SE_out)
     );
 
-    shift26x32 Shift26x32(
+    shift26x28 Shift26x32(
         .in(IR_out[25:0]),
         .out(Shift26_out)
     );
@@ -227,12 +262,12 @@ wire [31:0] EPC_out;
         .out(ShiftedSE_out)
     );
 
-    signExt16x32 SignExt(
+    signExtend16x32 SignExt(
         .in(IR_out[15:0]),
         .out(SignExt_out)
     );
 
-    signExt1x32 SignExt1(
+    signExtend1x32 SignExt1(
         .in(Menor_flag),
         .out(SignExt1_out)
     );
@@ -288,12 +323,33 @@ wire [31:0] EPC_out;
         .Menor(Menor_flag)
     );
 
-    controlUnit CPU(
+    multiplier mult(
         .clk(clk),
-        .resert(reset),
+        .start(mult_start),
+        .a(A_out),
+        .b(B_out),
+        .hi(mult_hi),
+        .lo(mult_lo),
+        .ready(mult_ready)
+    );
+
+    divider div(
+        .clk(clk),
+        .start(div_start),
+        .a(A_out),
+        .b(B_out),
+        .hi(div_hi),
+        .lo(div_lo),
+        .ready(div_ready),
+        .div_zero(div_zero_flag)
+    );
+
+    control_unit CPU(
+        .clk(clk),
+        .reset(reset),
         .PCWrite(PCWrite),
         .PCWriteCond(PCWriteCond),
-        .IorD(IorD),   
+        .IorD(IorD),
         .MemWR(MemWR),
         .IRWrite(IRWrite),
         .RegRs(RegRs),
@@ -320,7 +376,7 @@ wire [31:0] EPC_out;
         .WriteHI(WriteHI),
         .WriteLO(WriteLO),
         .div0(div0),
-        .resert_out(resert_out),
+        .reset_out(reset_out),
         .overflow_flag(overflow_flag),
         .igual_flag(igual_flag),
         .maior_flag(maior_flag),
