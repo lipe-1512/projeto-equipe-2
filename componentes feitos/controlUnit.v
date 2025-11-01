@@ -23,7 +23,7 @@ module controlUnit (
     output reg Alu_out_wr,
     output reg[2:0] PC_Source,
     output reg PC_wr,
-    output reg EPC_wr,  
+    output reg EPC_wr,
     output reg [1:0] load_control,
     output reg [1:0] store_control,
     output reg mult_start,
@@ -33,10 +33,13 @@ module controlUnit (
     output reg Lo_wr,
     output reg hi_wr,
     output reg reset_out,
-    output reg [1:0] shift_control_in,
     output reg [2:0] shift_control,
-    output reg [1:0] shift_n,
-    output reg [3:0] DataSrc
+    output reg [3:0] DataSrc,
+    output reg RegRs,
+    output reg ShiftAmt,
+    output reg ShiftSrc,
+    output reg [1:0] shift_control_in,
+    output reg [1:0] shift_n
 );
 
 // Parâmetros para estados
@@ -105,6 +108,7 @@ parameter POP_F = 6'b000110;
 // Registradores de estado
 reg [5:0] state;
 reg [5:0] counter;
+reg use_sp;
 
 // Lógica da FSM
 always @(posedge clk or posedge reset) begin
@@ -444,9 +448,7 @@ always @(*) begin
     Lo_wr = 1'b0;
     hi_wr = 1'b0;
     reset_out = 1'b0;
-    shift_control_in = 2'b00;
     shift_control = 3'b000;
-    shift_n = 2'b00;
 
     case (state)
         fetch: begin
@@ -630,13 +632,16 @@ always @(*) begin
                 Alu_Src_B = 3'b001;
                 Alu_Op = 3'b010;
                 Alu_out_wr = 1'b1;
+                use_sp = 1'b1;
             end else if (counter == 6'b000001) begin
                 IorD = 3'b011;
                 mem_wr = 1'b1;
+                use_sp = 1'b1;
             end else if (counter == 6'b000010) begin
                 mem_reg = 3'b011;
                 reg_dst = 2'b11;
                 reg_wr = 1'b1;
+                use_sp = 1'b1;
             end
         end
         POP_state: begin
@@ -645,17 +650,21 @@ always @(*) begin
                 Alu_Src_B = 3'b001;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
+                use_sp = 1'b1;
             end else if (counter == 6'b000001) begin
                 IorD = 3'b011;
                 mem_wr = 1'b0;
+                use_sp = 1'b1;
             end else if (counter == 6'b000011) begin
                 mem_reg = 3'b010;
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
+                use_sp = 1'b1;
             end else if (counter == 6'b000100) begin
                 mem_reg = 3'b011;
                 reg_dst = 2'b11;
                 reg_wr = 1'b1;
+                use_sp = 1'b1;
             end
         end
         LW_state: begin

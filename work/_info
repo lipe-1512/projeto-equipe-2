@@ -22,9 +22,9 @@ V:adHbk0Ym0TAKYW83J5Y[3
 !s100 hZ46CT_BzQl8j]02_Vf=o2
 Z7 OV;C;10.5b;63
 32
-Z8 !s110 1762013829
+Z8 !s110 1762017347
 !i10b 1
-Z9 !s108 1762013829.000000
+Z9 !s108 1762017347.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Banco_reg.vhd|
 Z11 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Banco_reg.vhd|
 !i113 1
@@ -73,11 +73,11 @@ Z21 tCvgOpt 0
 vcontrolUnit
 R8
 !i10b 1
-!s100 gAhm3;>ZZV60<73:>TP]L0
-I4L8aGA4IlPAT]IINM`ZY42
+!s100 1DPB=P2YO9GzoE4CSbHIH1
+IbG>_TOm_Y=A6n:O`=9Nj33
 R14
 R4
-w1762013175
+w1762017220
 R15
 R16
 L0 1
@@ -211,11 +211,11 @@ VBQOb]HT9=MG7SEg;CX^`F2
 !s100 `XB7Y7RajL=XL[1@SGPEn3
 R7
 32
-R8
+Z34 !s110 1762017348
 !i10b 1
-R9
-Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Memoria.vhd|
-Z35 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Memoria.vhd|
+Z35 !s108 1762017348.000000
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Memoria.vhd|
+Z37 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Memoria.vhd|
 !i113 1
 R12
 R13
@@ -232,11 +232,11 @@ VgKRFl>N<1fciMY;O6bQf53
 !s100 :LkMFDWKcAZ3m4FCR?^4l0
 R7
 32
-R8
-!i10b 1
-R9
 R34
+!i10b 1
 R35
+R36
+R37
 !i113 1
 R12
 R13
@@ -262,7 +262,7 @@ R9
 R20
 R21
 vmux2x1
-Z36 !s110 1762013828
+Z38 !s110 1762017346
 !i10b 1
 !s100 ^@J13nIJ4O8dLeF6V_oH=2
 IeK[l;TJAE[i>z97D^^i@a1
@@ -276,14 +276,14 @@ R17
 r1
 !s85 0
 31
-Z37 !s108 1762013828.000000
+Z39 !s108 1762017346.000000
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux2x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux2x1.v|
 !i113 1
 R20
 R21
 vmux2x1_32
-R36
+R38
 !i10b 1
 !s100 5zf;L0PYm;ZLk7[jBV2Wo2
 I;3][CF_aoci=3kkRB>adI3
@@ -297,14 +297,14 @@ R17
 r1
 !s85 0
 31
-R37
+R39
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux2x1_32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux2x1_32.v|
 !i113 1
 R20
 R21
 vmux3x1
-R36
+R38
 !i10b 1
 !s100 <d]fca1bX?kd8b_T1n;TP3
 IQQREi2BI>[lfTezZX<Xb>0
@@ -318,14 +318,14 @@ R17
 r1
 !s85 0
 31
-R37
+R39
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux3x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux3x1.v|
 !i113 1
 R20
 R21
 vmux4x1
-R36
+R38
 !i10b 1
 !s100 67I7dF5b0oTFHl?<6@1a]2
 IkX05kVC86nX6^R844IHC32
@@ -339,14 +339,14 @@ R17
 r1
 !s85 0
 31
-R37
+R39
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux4x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux4x1.v|
 !i113 1
 R20
 R21
 vmux6x1
-R36
+R38
 !i10b 1
 !s100 fN;jL5Y;il0;56iLX0aWS0
 IUV89mYi8fd9ZWlP;Mzg0c0
@@ -360,14 +360,14 @@ R17
 r1
 !s85 0
 31
-R37
+R39
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux6x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux6x1.v|
 !i113 1
 R20
 R21
 vmux9x1
-R36
+R8
 !i10b 1
 !s100 UOeYUYhAk5Z?DV0ZzACBM1
 I6eI]KYc:oB3bh:a?S@fA^0
@@ -381,7 +381,7 @@ R17
 r1
 !s85 0
 31
-R37
+R9
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux9x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/mux9x1.v|
 !i113 1
@@ -410,7 +410,7 @@ R20
 R21
 n@p@c
 vportaAND
-R36
+R8
 !i10b 1
 !s100 ]6]QDAd5MoGNUe5aT27A`3
 IDHXIL@TTnOccJXVk?L48D0
@@ -424,7 +424,7 @@ R17
 r1
 !s85 0
 31
-R37
+R9
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/portaAND.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/portaAND.v|
 !i113 1
@@ -432,7 +432,7 @@ R20
 R21
 nporta@a@n@d
 vportaOR
-R36
+R8
 !i10b 1
 !s100 fB5l:Z>JmG1^;iE:42TB?1
 IMJiX<P=KKacRQ<ZYA?ALz0
@@ -446,7 +446,7 @@ R17
 r1
 !s85 0
 31
-R37
+R9
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/portaOR.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/componentes feitos/portaOR.v|
 !i113 1
@@ -464,11 +464,11 @@ VfM5VG7Uh1aeMYE9LkAJ3B1
 !s100 EZlbReQ5cH1;cnZ4g48d:0
 R7
 32
-R8
-!i10b 1
-R9
 R34
+!i10b 1
 R35
+R36
+R37
 !i113 1
 R12
 R13
@@ -478,19 +478,19 @@ R1
 R2
 R3
 R4
-Z38 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd
-Z39 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd
+Z40 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd
+Z41 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd
 l0
 L89
 Vn^6CTT0G6[TK<hMLAOdVE0
 !s100 h6S4QO2lP<LeKEbf`2MFI0
 R7
 32
-R8
+R34
 !i10b 1
-R9
-Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd|
-Z41 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd|
+R35
+Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd|
+Z43 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/RegDesloc.vhd|
 !i113 1
 R12
 R13
@@ -505,11 +505,11 @@ VEPn;3Dggf]^J6z<;P^o712
 !s100 8QCFN_T9_07koG]I6XRQS3
 R7
 32
-R8
+R34
 !i10b 1
-R9
-R40
-R41
+R35
+R42
+R43
 !i113 1
 R12
 R13
@@ -518,19 +518,19 @@ R0
 R2
 R3
 R4
-Z42 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd
-Z43 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd
+Z44 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd
+Z45 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd
 l0
 L53
 VD=`aG^VOPEDP69ifb8G;52
 !s100 ^e8=Z<CbNTLXR@XGZJMQo3
 R7
 32
-R8
+R34
 !i10b 1
-R9
-Z44 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd|
-Z45 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd|
+R35
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd|
+Z47 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/Registrador.vhd|
 !i113 1
 R12
 R13
@@ -544,11 +544,11 @@ V<kVfXRZJUh40ja<<lN_3:3
 !s100 EXKKzlBL1ARAk5TCN4`Vg2
 R7
 32
-R8
+R34
 !i10b 1
-R9
-R44
-R45
+R35
+R46
+R47
 !i113 1
 R12
 R13
@@ -667,19 +667,19 @@ R1
 R2
 R3
 R4
-Z46 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd
-Z47 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd
+Z48 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd
+Z49 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd
 l0
 L70
 V7;A2o1dNA?ebYYPhMG1c70
 !s100 `T`IV8d5:=6dX5^lg]oam2
 R7
 32
-Z48 !s110 1762013830
+R34
 !i10b 1
-R9
-Z49 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd|
-Z50 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd|
+R35
+Z50 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd|
+Z51 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2/Componentes do Projeto/ula32.vhd|
 !i113 1
 R12
 R13
@@ -687,18 +687,18 @@ Abehavioral
 R1
 R2
 R3
-Z51 DEx4 work 5 ula32 0 22 7;A2o1dNA?ebYYPhMG1c70
+Z52 DEx4 work 5 ula32 0 22 7;A2o1dNA?ebYYPhMG1c70
 l96
 L86
-Z52 VhDUi_mNh2[oS[:2HcEDN>0
-Z53 !s100 `6BCj1jhNY1a=kdKG23zo1
+Z53 VhDUi_mNh2[oS[:2HcEDN>0
+Z54 !s100 `6BCj1jhNY1a=kdKG23zo1
 R7
 32
-R48
+R34
 !i10b 1
-R9
-R49
+R35
 R50
+R51
 !i113 1
 R12
 R13
