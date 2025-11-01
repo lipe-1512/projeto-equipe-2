@@ -38,7 +38,8 @@ wire RegRs, ShiftAmt, ShiftSrc;
 wire [1:0] reg_dst;
 wire reg_wr;
 wire wr_A, wr_B;
-wire [1:0] Alu_Src_A, Alu_Src_B;
+wire [1:0] Alu_Src_A;
+wire [1:0] Alu_Src_B;
 wire [2:0] Alu_Op;
 wire Alu_out_wr;
 wire EPC_wr;
@@ -374,38 +375,37 @@ controlUnit CPU(
     .lt(lt_flag),
     .gt(gt_flag),
     .et(et_flag),
-    .PCWriteCond(PCWriteCond),
+    .mult_ready(mult_ready),
+    .div_ready(div_ready),
     .IorD(IorD),
     .mem_wr(mem_wr),
+    .cause_control(cause_control),
     .ir_wr(ir_wr),
     .reg_wr(reg_wr),
     .wr_A(wr_A),
     .wr_B(wr_B),
+    .mem_reg(mem_reg),
     .reg_dst(reg_dst),
     .Alu_Src_A(Alu_Src_A),
     .Alu_Src_B(Alu_Src_B),
     .Alu_Op(Alu_Op),
+    .PCWriteCond(PCWriteCond),
     .Alu_out_wr(Alu_out_wr),
     .PC_Source(PC_Source),
     .PC_wr(PC_wr),
     .EPC_wr(EPC_wr),
-    .cause_control(cause_control),
-    .mem_reg(mem_reg),
     .load_control(load_control),
     .store_control(store_control),
-    .MemDataWrite(MemDataWrite),
-    .ShiftSrc(ShiftSrc),
-    .ShiftAmt(ShiftAmt),
-    .shift_control(shift_control),
-    .hi_wr(hi_wr),
-    .Lo_wr(lo_wr),
-    .reset_out(reset_out),
     .mult_start(mult_start),
     .div_start(div_start),
     .Mult_div_lo(Mult_div_lo),
     .Mult_div_hi(Mult_div_hi),
-    .shift_control_in(shift_control_in),
-    .shift_n(shift_n)
+    .Lo_wr(lo_wr),
+    .hi_wr(hi_wr),
+    .reset_out(reset_out),
+    .shift_control(shift_control),
+    .DataSrc(DataSrc),
+    .RegRs(RegRs)
 );
 
 // PC enable logic

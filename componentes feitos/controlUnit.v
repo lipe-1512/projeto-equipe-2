@@ -5,6 +5,7 @@ module controlUnit (
     input wire div_zero, // Flag de divisão por zero
     input wire [5:0] OpCode, Funct,
     input wire zero, neg, lt, gt, et, // Flags de condição da ALU
+    input wire mult_ready, div_ready, // Sinais de pronto do Multiplicador/Divisor
 
     // Sinais de Controle de Saída
     output reg[2:0] IorD,
@@ -17,7 +18,7 @@ module controlUnit (
     output reg[2:0] mem_reg,
     output reg[1:0] reg_dst,
     output reg[1:0] Alu_Src_A,
-    output reg[2:0] Alu_Src_B,
+    output reg[1:0] Alu_Src_B,
     output reg[2:0] Alu_Op,
     output reg PCWriteCond,
     output reg Alu_out_wr,
@@ -36,8 +37,6 @@ module controlUnit (
     output reg [2:0] shift_control,
     output reg [3:0] DataSrc,
     output reg RegRs
-    // CORREÇÃO: Removidas as portas ShiftAmt e ShiftSrc, pois são controladas pelo datapath
-    // CORREÇÃO: A porta MemDataWrite também foi removida, pois a CU não a controla diretamente.
 );
 
 // Parâmetros para estados
@@ -108,7 +107,6 @@ parameter POP_F = 6'b000110;
 // Registradores de estado
 reg [5:0] state;
 reg [5:0] counter;
-reg use_sp;
 
 // Lógica da FSM
 always @(posedge clk or posedge reset) begin
@@ -434,7 +432,7 @@ always @(*) begin
     mem_reg = 3'b000;
     reg_dst = 2'b00;
     Alu_Src_A = 2'b00;
-    Alu_Src_B = 3'b000;
+    Alu_Src_B = 2'b00;
     Alu_Op = 3'b000;
     Alu_out_wr = 1'b0;
     PC_Source = 3'b000;
@@ -450,13 +448,15 @@ always @(*) begin
     hi_wr = 1'b0;
     reset_out = 1'b0;
     shift_control = 3'b000;
+    DataSrc = 4'b0000;
+    RegRs = 1'b0;
 
     case (state)
         fetch: begin
             if (counter == 6'b000000) begin
                 // ALUOut = PC + 4
                 Alu_Src_A = 2'b00;
-                Alu_Src_B = 3'b001;
+                Alu_Src_B = 2'b01;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -472,7 +472,7 @@ always @(*) begin
             wr_A = 1'b1;
             wr_B = 1'b1;
             Alu_Src_A = 2'b00;
-            Alu_Src_B = 3'b011;
+            Alu_Src_B = 2'b11;
             Alu_Op = 3'b001;
             Alu_out_wr = 1'b1;
         end
@@ -480,7 +480,7 @@ always @(*) begin
             if (counter == 6'b000000) begin
                 // Execução: ALUOut = A + B
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -499,7 +499,7 @@ always @(*) begin
         SUB_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b010;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -516,7 +516,7 @@ always @(*) begin
         AND_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b011;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -530,7 +530,7 @@ always @(*) begin
         OR_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b100;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -544,7 +544,7 @@ always @(*) begin
         SLT_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b101;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -602,7 +602,7 @@ always @(*) begin
         SLL_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b110;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -616,7 +616,7 @@ always @(*) begin
         SRA_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b111;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -630,49 +630,49 @@ always @(*) begin
         PUSH_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b01;
-                Alu_Src_B = 3'b001;
+                Alu_Src_B = 2'b01;
                 Alu_Op = 3'b010;
                 Alu_out_wr = 1'b1;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end else if (counter == 6'b000001) begin
                 IorD = 3'b011;
                 mem_wr = 1'b1;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end else if (counter == 6'b000010) begin
                 mem_reg = 3'b011;
                 reg_dst = 2'b11;
                 reg_wr = 1'b1;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end
         end
         POP_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b01;
-                Alu_Src_B = 3'b001;
+                Alu_Src_B = 2'b01;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end else if (counter == 6'b000001) begin
                 IorD = 3'b011;
                 mem_wr = 1'b0;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end else if (counter == 6'b000011) begin
                 mem_reg = 3'b010;
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end else if (counter == 6'b000100) begin
                 mem_reg = 3'b011;
                 reg_dst = 2'b11;
                 reg_wr = 1'b1;
-                use_sp = 1'b1;
+                RegRs = 1'b1;
             end
         end
         LW_state: begin
             if (counter == 6'b000000) begin
                 // ALUOut = A + signext(imm)
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b010;
+                Alu_Src_B = 2'b10;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -697,7 +697,7 @@ always @(*) begin
         SW_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b010;
+                Alu_Src_B = 2'b10;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -710,7 +710,7 @@ always @(*) begin
         ADDI_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b010;
+                Alu_Src_B = 2'b10;
                 Alu_Op = 3'b001;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -727,7 +727,7 @@ always @(*) begin
         ANDI_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b010;
+                Alu_Src_B = 2'b10;
                 Alu_Op = 3'b011;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -741,7 +741,7 @@ always @(*) begin
         ORI_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b010;
+                Alu_Src_B = 2'b10;
                 Alu_Op = 3'b100;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -755,7 +755,7 @@ always @(*) begin
         SLTI_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b010;
+                Alu_Src_B = 2'b10;
                 Alu_Op = 3'b101;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -769,7 +769,7 @@ always @(*) begin
         BEQ_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b010;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
@@ -782,7 +782,7 @@ always @(*) begin
         BNE_state: begin
             if (counter == 6'b000000) begin
                 Alu_Src_A = 2'b10;
-                Alu_Src_B = 3'b000;
+                Alu_Src_B = 2'b00;
                 Alu_Op = 3'b010;
                 Alu_out_wr = 1'b1;
             end else if (counter == 6'b000001) begin
