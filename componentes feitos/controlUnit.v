@@ -35,7 +35,8 @@ module controlUnit (
     output reg reset_out,
     output reg [1:0] shift_control_in,
     output reg [2:0] shift_control,
-    output reg [1:0] shift_n
+    output reg [1:0] shift_n,
+    output reg [3:0] DataSrc
 );
 
 // Parâmetros para estados
