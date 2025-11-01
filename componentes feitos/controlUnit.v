@@ -17,7 +17,7 @@ module controlUnit (
     output reg[2:0] mem_reg,
     output reg[1:0] reg_dst,
     output reg[1:0] Alu_Src_A,
-    output reg[1:0] Alu_Src_B,
+    output reg[2:0] Alu_Src_B,
     output reg[2:0] Alu_Op,
     output reg PCWriteCond,
     output reg Alu_out_wr,
@@ -35,11 +35,9 @@ module controlUnit (
     output reg reset_out,
     output reg [2:0] shift_control,
     output reg [3:0] DataSrc,
-    output reg RegRs,
-    output reg ShiftAmt,
-    output reg ShiftSrc,
-    output reg [1:0] shift_control_in,
-    output reg [1:0] shift_n
+    output reg RegRs
+    // CORREÇÃO: Removidas as portas ShiftAmt e ShiftSrc, pois são controladas pelo datapath
+    // CORREÇÃO: A porta MemDataWrite também foi removida, pois a CU não a controla diretamente.
 );
 
 // Parâmetros para estados
@@ -79,7 +77,9 @@ parameter JAL_state = 6'b011001;
 // Opcodes
 parameter R_TYPE = 6'b000000;
 parameter LW_OP = 6'b100011;
+parameter LB_OP = 6'b100000;
 parameter SW_OP = 6'b101011;
+parameter SB_OP = 6'b101000;
 parameter ADDI_OP = 6'b001000;
 parameter ANDI_OP = 6'b001100;
 parameter ORI_OP = 6'b001101;
@@ -156,6 +156,7 @@ always @(posedge clk or posedge reset) begin
                             endcase
                         end
                         LW_OP: state <= LW_state;
+                        LB_OP: state <= LW_state;
                         SW_OP: state <= SW_state;
                         ADDI_OP: state <= ADDI_state;
                         ANDI_OP: state <= ANDI_state;
@@ -678,6 +679,12 @@ always @(*) begin
                 // MDR = Mem[ALUOut]
                 IorD = 3'b100;
                 mem_wr = 1'b0;
+            end else if (counter == 6'b000010) begin
+                // CORREÇÃO: Seta o load_control para LW (word) ou LB (byte)
+                if (OpCode == 6'b100011) // LW
+                    load_control = 2'b10;
+                else if (OpCode == 6'b100000) // LB
+                    load_control = 2'b01;
             end else if (counter == 6'b000011) begin
                 // Reg[rt] = MDR
                 mem_reg = 3'b010;
