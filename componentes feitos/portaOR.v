@@ -1,8 +1,9 @@
 module portaOR (
-    input in0, in1,
+    input in0,
+    input in1,
     output out
 );
 
-    assign out = in0 || in1;
-    
+assign out = in0 | in1;
+
 endmodule

@@ -79,9 +79,9 @@ ENTITY Memoria IS
 	PORT (
 		Address : IN STD_LOGIC_VECTOR(31 DOWNTO 0); -- Endereço de memória a ser lido
 		Clock : IN STD_LOGIC; -- Clock do sistema
-		Wr : IN STD_LOGIC; -- Indica se a memória será lida (0) ou escrita (1)
-		Datain : IN STD_LOGIC_VECTOR(31 DOWNTO 0); -- Valor lido da memória quando Wr = 0
-		Dataout : OUT STD_LOGIC_VECTOR(31 DOWNTO 0) -- Valor a ser escrito quando Wr = 1
+		Wr : IN STD_LOGIC_VECTOR(3 DOWNTO 0); -- Indica quais bytes serão escritos (1 para escrever)
+		Datain : IN STD_LOGIC_VECTOR(31 DOWNTO 0); -- Valor a ser escrito
+		Dataout : OUT STD_LOGIC_VECTOR(31 DOWNTO 0) -- Valor lido da memória
 	);
 END Memoria;
 
@@ -110,7 +110,10 @@ ARCHITECTURE behavioral_arch OF Memoria IS
 	SIGNAL datainS2 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
 	SIGNAL datainS3 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
 
-	SIGNAL wrS : STD_LOGIC;
+	SIGNAL wrS0 : STD_LOGIC;
+	SIGNAL wrS1 : STD_LOGIC;
+	SIGNAL wrS2 : STD_LOGIC;
+	SIGNAL wrS3 : STD_LOGIC;
 	SIGNAL clockS : STD_LOGIC;
 
 	SIGNAL addr : INTEGER;
@@ -121,7 +124,10 @@ ARCHITECTURE behavioral_arch OF Memoria IS
 
 BEGIN
 
-	wrS <= wr;
+	wrS0 <= wr(0);
+	wrS1 <= wr(1);
+	wrS2 <= wr(2);
+	wrS3 <= wr(3);
 	clockS <= clock;
 
 	-- Conversão do endereço no formato INTEGER
@@ -173,21 +179,21 @@ BEGIN
 	-- Armazena os endereços no formato 4n
 	MEM : lpm_ram_dq
 	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS0, Address => addrN0, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS0);
+	PORT MAP(data => datainS0, Address => addrN0, we => wrS0, inclock => clockS, outclock => clockS, q => dataoutS0);
 
 	-- Armazena os endereços no formato 4n + 1
 	MEM_plus_One : lpm_ram_dq
 	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS1, Address => addrN1, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS1);
+	PORT MAP(data => datainS1, Address => addrN1, we => wrS1, inclock => clockS, outclock => clockS, q => dataoutS1);
 
 	-- Armazena os endereços no formato 4n + 2
 	MEM_plus_Two : lpm_ram_dq
 	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS2, Address => addrN2, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS2);
+	PORT MAP(data => datainS2, Address => addrN2, we => wrS2, inclock => clockS, outclock => clockS, q => dataoutS2);
 
 	-- Armazena os endereços no formato 4n + 3
 	MEM_plus_Three : lpm_ram_dq
 	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS3, Address => addrN3, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS3);
+	PORT MAP(data => datainS3, Address => addrN3, we => wrS3, inclock => clockS, outclock => clockS, q => dataoutS3);
 
 END behavioral_arch;

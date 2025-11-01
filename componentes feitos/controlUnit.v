@@ -1,4 +1,4 @@
-module control_unit (
+module controlUnit (
     input wire clk, reset,
     input wire O, // Flag de Overflow da ALU
     input wire OpCode404_flag, // Flag indicando opcode inválido
@@ -17,8 +17,9 @@ module control_unit (
     output reg[2:0] mem_reg,
     output reg[1:0] reg_dst,
     output reg[1:0] Alu_Src_A,
-    output reg[2:0] Alu_Src_B,
+    output reg[1:0] Alu_Src_B,
     output reg[2:0] Alu_Op,
+    output reg PCWriteCond,
     output reg Alu_out_wr,
     output reg[2:0] PC_Source,
     output reg PC_wr,
