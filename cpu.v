@@ -32,7 +32,7 @@ wire [31:0] HI_in, LO_in;
 wire PC_wr, PCWriteCond, and_out, PC_enable;
 wire [2:0] IorD;
 wire mem_wr;
-wire [3:0] mem_wr_byte;
+wire  mem_wr_byte;
 wire ir_wr;
 wire RegRs, ShiftAmt, ShiftSrc;
 wire [1:0] reg_dst;
