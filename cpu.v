@@ -1,7 +1,4 @@
-module cpu (
-    input clk,
-    input reset
-);
+module cpu;
 
 // Wires for data paths
 wire [31:0] PC_out, PC_in;
@@ -21,7 +18,7 @@ wire [31:0] Shift_out;
 wire [31:0] SignExt_out, SignExt1_out;
 wire [31:0] Exception_out;
 wire [31:0] ALUSrcA_out, ALUSrcB_out;
-wire [31:0] Memory_address;
+reg [31:0] Memory_address;
 wire [31:0] PcSource_out;
 wire [4:0] WriteReg_out;
 wire [4:0] RegRs_out, ShiftAmt_out;
@@ -76,6 +73,57 @@ wire [31:0] load_data;
 
 // Exception cause register
 wire [31:0] cause_out;
+
+// Internal signals for simulation
+reg clk;
+reg reset;
+
+`ifdef SIMULATION
+// Simulation logic: generate clock and reset
+initial begin
+    clk = 0;
+    reset = 1;
+    #100 reset = 0; // Reset for 100ns
+    #5000 $finish; // End simulation after 5000ns
+end
+
+always #10 clk = ~clk; // 50MHz clock
+
+// Initialize registers to avoid 'X' propagation
+initial begin
+    PC_out = 32'h00000000;
+    IR_out = 32'h00000000;
+    MDR_out = 32'h00000000;
+    A_out = 32'h00000000;
+    B_out = 32'h00000000;
+    ALUOut_out = 32'h00000000;
+    HI_out = 32'h00000000;
+    LO_out = 32'h00000000;
+    EPC_out = 32'h00000000;
+    ALU_result = 32'h00000000;
+    Memory_out = 32'h00000000;
+    Data1 = 32'h00000000;
+    Data2 = 32'h00000000;
+    WriteData = 32'h00000000;
+    SE_out = 32'h00000000;
+    ShiftedSE_out = 32'h00000000;
+    Shift26_out = 28'h0000000;
+    Shift_out = 32'h00000000;
+    SignExt_out = 32'h00000000;
+    SignExt1_out = 32'h00000000;
+    Exception_out = 32'h00000000;
+    ALUSrcA_out = 32'h00000000;
+    ALUSrcB_out = 32'h00000000;
+    Memory_address = 32'h00000000;
+    PcSource_out = 32'h00000000;
+    WriteReg_out = 5'h00;
+    RegRs_out = 5'h00;
+    ShiftAmt_out = 5'h00;
+    ShiftSrc_out = 32'h00000000;
+    HI_in = 32'h00000000;
+    LO_in = 32'h00000000;
+end
+`endif
 
 // Instantiate components
 
@@ -205,6 +253,9 @@ mux3x1 #(.WIDTH(32)) muxIorD(
     .out(Memory_address)
 );
 
+// Memory address mux to avoid 'X' during reset
+wire [31:0] memory_address_mux = reset ? 32'h00000000 : Memory_address;
+
 // Exception mux
 mux3x1 #(.WIDTH(32)) muxException(
     .sel(Exception),
@@ -333,7 +384,7 @@ Banco_Reg bankReg(
 Memoria Memory(
     .Clock(clk),
     .Wr(mem_wr_byte),
-    .Address(Memory_address),
+    .Address(memory_address_mux),
     .Datain(store_data),
     .Dataout(Memory_out)
 );
