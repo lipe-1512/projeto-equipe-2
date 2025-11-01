@@ -18,7 +18,7 @@ wire [31:0] Shift_out;
 wire [31:0] SignExt_out, SignExt1_out;
 wire [31:0] Exception_out;
 wire [31:0] ALUSrcA_out, ALUSrcB_out;
-reg [31:0] Memory_address;
+wire [31:0] Memory_address;
 wire [31:0] PcSource_out;
 wire [4:0] WriteReg_out;
 wire [4:0] RegRs_out, ShiftAmt_out;
@@ -78,8 +78,7 @@ wire [31:0] cause_out;
 reg clk;
 reg reset;
 
-`ifdef SIMULATION
-// Simulation logic: generate clock and reset
+// Clock and reset generation for simulation
 initial begin
     clk = 0;
     reset = 1;
@@ -88,42 +87,6 @@ initial begin
 end
 
 always #10 clk = ~clk; // 50MHz clock
-
-// Initialize registers to avoid 'X' propagation
-initial begin
-    PC_out = 32'h00000000;
-    IR_out = 32'h00000000;
-    MDR_out = 32'h00000000;
-    A_out = 32'h00000000;
-    B_out = 32'h00000000;
-    ALUOut_out = 32'h00000000;
-    HI_out = 32'h00000000;
-    LO_out = 32'h00000000;
-    EPC_out = 32'h00000000;
-    ALU_result = 32'h00000000;
-    Memory_out = 32'h00000000;
-    Data1 = 32'h00000000;
-    Data2 = 32'h00000000;
-    WriteData = 32'h00000000;
-    SE_out = 32'h00000000;
-    ShiftedSE_out = 32'h00000000;
-    Shift26_out = 28'h0000000;
-    Shift_out = 32'h00000000;
-    SignExt_out = 32'h00000000;
-    SignExt1_out = 32'h00000000;
-    Exception_out = 32'h00000000;
-    ALUSrcA_out = 32'h00000000;
-    ALUSrcB_out = 32'h00000000;
-    Memory_address = 32'h00000000;
-    PcSource_out = 32'h00000000;
-    WriteReg_out = 5'h00;
-    RegRs_out = 5'h00;
-    ShiftAmt_out = 5'h00;
-    ShiftSrc_out = 32'h00000000;
-    HI_in = 32'h00000000;
-    LO_in = 32'h00000000;
-end
-`endif
 
 // Instantiate components
 
