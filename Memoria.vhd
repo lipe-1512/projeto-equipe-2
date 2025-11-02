@@ -119,6 +119,12 @@ ARCHITECTURE behavioral_arch OF Memoria IS
 	SIGNAL rotdelay1 : INTEGER;
 	SIGNAL rotdelay2 : INTEGER;
 
+	-- Bancos de memórias (cada banco possui 256 bytes)
+
+	-- Armazena os endereços no formato 4n
+	type RAM_TYPE is array (0 to 2**ADDR_WIDTH - 1) of STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0);
+	signal RAM0, RAM1, RAM2, RAM3 : RAM_TYPE;
+
 BEGIN
 
 	wrS <= wr;
@@ -167,12 +173,6 @@ PROCESS (clockS)
 				rotdelay2 <= rotdelay1;
 			END IF;
 		END PROCESS;
-
-	-- Bancos de memórias (cada banco possui 256 bytes)
-
-	-- Armazena os endereços no formato 4n
-type RAM_TYPE is array (0 to 2**ADDR_WIDTH - 1) of STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0);
-	signal RAM0, RAM1, RAM2, RAM3 : RAM_TYPE;
 
 	-- Inicialização da memória (simplificada, pois o ModelSim não suporta lpm_file facilmente)
 	-- Para simulação, o arquivo .mif deve ser carregado manualmente ou via script do ModelSim.

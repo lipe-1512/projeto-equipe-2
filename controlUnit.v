@@ -116,7 +116,7 @@ parameter POP_F = 6'b000110;
 // Registradores de estado
 reg [5:0] state;
 
- initial begin
+ initial begin // resert inicial
         reset_out = 1'b1;
     end
 // Lógica da FSM
