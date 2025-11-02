@@ -89,35 +89,35 @@ END Memoria;
 -- Simulation
 ARCHITECTURE behavioral_arch OF Memoria IS
 
-	SIGNAL addrL0 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrL1 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrL2 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrL3 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrN0 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrN1 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrN2 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL addrN3 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0) := (others => '0');
+	SIGNAL addrL0 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrL1 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrL2 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrL3 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrN0 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrN1 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrN2 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
+	SIGNAL addrN3 : STD_LOGIC_VECTOR (ADDR_WIDTH - 1 DOWNTO 0);
 
-	SIGNAL dataoutS : STD_LOGIC_VECTOR (31 DOWNTO 0) := (others => '0');
-	SIGNAL datainS : STD_LOGIC_VECTOR (31 DOWNTO 0) := (others => '0');
+	SIGNAL dataoutS : STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL datainS : STD_LOGIC_VECTOR (31 DOWNTO 0);
 
-	SIGNAL dataoutS0 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL dataoutS1 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL dataoutS2 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL dataoutS3 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL datainS0 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL datainS1 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL datainS2 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
-	SIGNAL datainS3 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0) := (others => '0');
+	SIGNAL dataoutS0 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL dataoutS1 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL dataoutS2 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL dataoutS3 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL datainS0 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL datainS1 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL datainS2 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
+	SIGNAL datainS3 : STD_LOGIC_VECTOR (DATA_WIDTH - 1 DOWNTO 0);
 
-	SIGNAL wrS : STD_LOGIC := '0';
-	SIGNAL clockS : STD_LOGIC := '0';
+	SIGNAL wrS : STD_LOGIC;
+	SIGNAL clockS : STD_LOGIC;
 
-	SIGNAL addr : INTEGER := 0;
+	SIGNAL addr : INTEGER;
 
-	SIGNAL rotdelay0 : INTEGER := 0;
-	SIGNAL rotdelay1 : INTEGER := 0;
-	SIGNAL rotdelay2 : INTEGER := 0;
+	SIGNAL rotdelay0 : INTEGER;
+	SIGNAL rotdelay1 : INTEGER;
+	SIGNAL rotdelay2 : INTEGER;
 
 BEGIN
 
@@ -125,39 +125,19 @@ BEGIN
 	clockS <= clock;
 
 	-- Conversão do endereço no formato INTEGER
-	PROCESS (Address)
-	BEGIN
-		IF Address(31 DOWNTO 8) = X"000000" THEN
-			addr <= TO_INTEGER(unsigned(Address(7 DOWNTO 0)));
-		ELSE
-			addr <= 0;
-		END IF;
-	END PROCESS;
+	addr <= TO_INTEGER(unsigned(Address(7 DOWNTO 0)));
 
 	-- Cálculo dos endereços de cada byte e conversão no formato STD_LOGIC_VECTOR
-	PROCESS (addr)
-	BEGIN
-		addrL0 <= STD_LOGIC_VECTOR(to_unsigned(addr + 3, ADDR_WIDTH));
-		addrL1 <= STD_LOGIC_VECTOR(to_unsigned(addr + 2, ADDR_WIDTH));
-		addrL2 <= STD_LOGIC_VECTOR(to_unsigned(addr + 1, ADDR_WIDTH));
-		addrL3 <= STD_LOGIC_VECTOR(to_unsigned(addr, ADDR_WIDTH));
-	END PROCESS;
+	addrL0 <= STD_LOGIC_VECTOR(to_unsigned(addr + 3, ADDR_WIDTH));
+	addrL1 <= STD_LOGIC_VECTOR(to_unsigned(addr + 2, ADDR_WIDTH));
+	addrL2 <= STD_LOGIC_VECTOR(to_unsigned(addr + 1, ADDR_WIDTH));
+	addrL3 <= STD_LOGIC_VECTOR(to_unsigned(addr, ADDR_WIDTH));
 
 	-- Conversão dos endereços para ficarem no formato 4n, 4n+1, 4n+2, 4n+3
-	PROCESS (addrL0, addrL1, addrL2, addrL3, Address)
-	BEGIN
-		IF Address(31 DOWNTO 8) = X"000000" THEN
-			addrN0 <= addrL0(ADDR_WIDTH - 1 DOWNTO 2) & "00";
-			addrN1 <= addrL1(ADDR_WIDTH - 1 DOWNTO 2) & "01";
-			addrN2 <= addrL2(ADDR_WIDTH - 1 DOWNTO 2) & "10";
-			addrN3 <= addrL3(ADDR_WIDTH - 1 DOWNTO 2) & "11";
-		ELSE
-			addrN0 <= (others => '0');
-			addrN1 <= (others => '0');
-			addrN2 <= (others => '0');
-			addrN3 <= (others => '0');
-		END IF;
-	END PROCESS;
+	addrN0 <= addrL0(ADDR_WIDTH - 1 DOWNTO 2) & "00";
+	addrN1 <= addrL1(ADDR_WIDTH - 1 DOWNTO 2) & "01";
+	addrN2 <= addrL2(ADDR_WIDTH - 1 DOWNTO 2) & "10";
+	addrN3 <= addrL3(ADDR_WIDTH - 1 DOWNTO 2) & "11";
 
 	-- Distribuição dos vetores de dados para os bancos de memória 
 	datainS0 <= datainS(7 DOWNTO 0);
@@ -174,24 +154,10 @@ BEGIN
 	rotdelay0 <= to_integer(unsigned(Address(1 DOWNTO 0)));
 
 	-- Rotação da entrada para que os bytes correspondam com os endereços
-	PROCESS (datain, rotdelay0)
-	BEGIN
-		if rotdelay0 = 0 then
-			datainS <= datain;
-		else
-			datainS <= datain((31 - rotdelay0 * 8) DOWNTO 0) & datain(31 DOWNTO (32 - rotdelay0 * 8));
-		end if;
-	END PROCESS;
+	datainS <= datain((31 - rotdelay0 * 8) DOWNTO 0) & datain(31 DOWNTO 31 - (rotdelay0 * 8 - 1));
 
 	-- Rotação da saída para desfazer rotação da entrada
-	PROCESS (dataoutS, rotdelay2)
-	BEGIN
-		if rotdelay2 = 0 then
-			dataout <= dataoutS;
-		else
-			dataout <= dataoutS((rotdelay2 * 8 - 1) DOWNTO 0) & dataoutS(31 DOWNTO (rotdelay2 * 8));
-		end if;
-	END PROCESS;
+	dataout <= dataoutS((rotdelay2 * 8 - 1) DOWNTO 0) & dataoutS(31 DOWNTO (rotdelay2 * 8));
 
 	-- Propaga valor da quantidade de rotações para ser usado na saída
 	PROCESS (clockS)
@@ -204,26 +170,24 @@ BEGIN
 
 	-- Bancos de memórias (cada banco possui 256 bytes)
 
-	-- Bancos de memórias (cada banco possui 256 bytes)
-
 	-- Armazena os endereços no formato 4n
 	MEM : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
 	PORT MAP(data => datainS0, Address => addrN0, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS0);
 
 	-- Armazena os endereços no formato 4n + 1
 	MEM_plus_One : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
 	PORT MAP(data => datainS1, Address => addrN1, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS1);
 
 	-- Armazena os endereços no formato 4n + 2
 	MEM_plus_Two : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
 	PORT MAP(data => datainS2, Address => addrN2, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS2);
 
 	-- Armazena os endereços no formato 4n + 3
 	MEM_plus_Three : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
 	PORT MAP(data => datainS3, Address => addrN3, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS3);
 
 END behavioral_arch;

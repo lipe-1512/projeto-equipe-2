@@ -34,7 +34,8 @@ module controlUnit (
     output reg reset_out,
     output reg [2:0] shift_control,
     output reg [3:0] DataSrc,
-    output reg RegRs
+    output reg RegRs,
+    output reg [3:0] mem_wr_byte_enable
 );
 
 // Parâmetros para estados
@@ -237,7 +238,7 @@ always @(*) begin
     PCWriteCond = 1'b0; Alu_out_wr = 1'b0; PC_Source = 3'b000; PC_wr = 1'b0;
     EPC_wr = 1'b0; load_control = 2'b00; store_control = 2'b00; mult_start = 1'b0;
     div_start = 1'b0; Lo_wr = 1'b0; hi_wr = 1'b0;
-    reset_out = 1'b0; shift_control = 3'b000; DataSrc = 4'b0000; RegRs = 1'b0;
+    reset_out = 1'b0; shift_control = 3'b000; DataSrc = 4'b0000; RegRs = 1'b0; mem_wr_byte_enable = 4'b0000;
 
     case (state)
         reset_start: begin
@@ -421,6 +422,7 @@ always @(*) begin
             // Mem[ALUOut] = B
             IorD = 3'b001; // Endereço de dado (ALUOut)
             mem_wr = 1'b1; // Escrita
+            mem_wr_byte_enable = 4'b1111; // Enable all bytes for SW/SB (rotation handles byte alignment)
             
             if (OpCode == SW_OP) store_control = 2'b10; // SW
             else store_control = 2'b01; // SB
@@ -457,6 +459,7 @@ always @(*) begin
             // Mem[ALUOut] = B (dado a ser salvo)
             IorD = 3'b001; // Endereço de dado (ALUOut)
             mem_wr = 1'b1; // Escrita
+            mem_wr_byte_enable = 4'b1111; // Enable all bytes for PUSH (SW)
             store_control = 2'b10; // SW
             RegRs = 1'b0; // B é o dado a ser salvo (Reg[rt])
         end

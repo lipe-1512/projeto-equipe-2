@@ -9,7 +9,7 @@ z2
 cModel Technology
 dC:/intelFPGA/18.1
 Ebanco_reg
-Z0 w1762028216
+Z0 w1762065462
 Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
@@ -22,9 +22,9 @@ V:adHbk0Ym0TAKYW83J5Y[3
 !s100 hZ46CT_BzQl8j]02_Vf=o2
 Z7 OV;C;10.5b;63
 32
-Z8 !s110 1762063346
+Z8 !s110 1762065613
 !i10b 1
-Z9 !s108 1762063346.000000
+Z9 !s108 1762065613.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Banco_reg.vhd|
 Z11 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Banco_reg.vhd|
 !i113 1
@@ -52,11 +52,11 @@ R13
 vcontrolUnit
 R8
 !i10b 1
-!s100 SCf<Wh:[^l<U3c]EC>5EV3
-IA5Q13d_Q7G`Nl9P=fed1n0
+!s100 LZNBb;_JVjY2H?4z7g5CP2
+I0l<HLRKAYea9CgD<GBHO=1
 Z14 VDg1SIo80bB@j0V0VzS_@n1
 R4
-w1762063292
+w1762064218
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/controlUnit.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/controlUnit.v
 L0 1
@@ -74,11 +74,11 @@ ncontrol@unit
 vcpu
 R8
 !i10b 1
-!s100 O_g]LU19HHH9>dk?2KRCD1
-I?fmE>NZd;<filkKA4GNHV3
+!s100 _H9j2IoXVfRM;8BJ<73H<3
+IEMMmPISWbDYU?8`8>W4P:3
 R14
 R4
-w1762063218
+w1762065604
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/cpu.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/cpu.v
 L0 1
@@ -99,7 +99,7 @@ R8
 I73Q<0dNDL@8I`j[ZK?kCm3
 R14
 R4
-R0
+Z18 w1762028216
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/divider.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/divider.v
 L0 1
@@ -118,8 +118,8 @@ R0
 R2
 R3
 R4
-Z18 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd
-Z19 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd
+Z19 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd
+Z20 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd
 l0
 L42
 VAfV1kYS402dnLRiFO;Z7_2
@@ -129,8 +129,8 @@ R7
 R8
 !i10b 1
 R9
-Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd|
-Z21 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd|
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd|
+Z22 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd|
 !i113 1
 R12
 R13
@@ -147,13 +147,13 @@ R7
 R8
 !i10b 1
 R9
-R20
 R21
+R22
 !i113 1
 R12
 R13
 Ememoria
-Z22 w1762035114
+R0
 Z23 DPx4 work 13 ram_constants 0 22 fM5VG7Uh1aeMYE9LkAJ3B1
 Z24 DPx3 lpm 14 lpm_components 0 22 BZZBj]8LhndN7CkCjD@L`2
 R1
@@ -185,8 +185,8 @@ R3
 DEx4 work 7 memoria 0 22 mkofzOhH?Zn05DR;dY2OP0
 l122
 L90
-Vh:iF;_HBG4ha_eWUPD=Eb0
-!s100 5TU7>PA_30hg2FEL:`9<m2
+VN2]@ZD`;iA[GGoMB>`Vln1
+!s100 33@Cb8V_dh1DC=G=4KkG53
 R7
 32
 R8
@@ -245,7 +245,7 @@ R8
 I]8K@K;HSQ`a5Kjlf:IOlF0
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/multiplier.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/multiplier.v
 L0 1
@@ -266,7 +266,7 @@ R8
 IK:YSmmknPC^LF0gL>HYda3
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux2x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux2x1.v
 L0 1
@@ -287,7 +287,7 @@ R8
 I@=L<<6TWIBLS;QLIS5LII3
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux2x1_32.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux2x1_32.v
 L0 1
@@ -308,7 +308,7 @@ R8
 IoMb<b_n_CBofcdeIPZSZc2
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux3x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux3x1.v
 L0 1
@@ -329,7 +329,7 @@ R8
 ILGk;]FHz^@IoPGkBl>[1^1
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux4x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux4x1.v
 L0 1
@@ -350,7 +350,7 @@ R8
 I@l=8j?QQo3fm=WIbEQ4Bb0
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux6x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux6x1.v
 L0 1
@@ -365,13 +365,13 @@ R9
 R16
 R17
 vmux9x1
-Z34 !s110 1762063347
+Z34 !s110 1762065614
 !i10b 1
 !s100 UOeYUYhAk5Z?DV0ZzACBM1
 If9VeZ17G>`Ygdj?=PzCF[3
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v
 L0 1
@@ -379,7 +379,7 @@ R15
 r1
 !s85 0
 31
-Z35 !s108 1762063347.000000
+Z35 !s108 1762065614.000000
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v|
 !i113 1
@@ -392,7 +392,7 @@ R34
 IZCmEUaN:ngz9bWIAjflI01
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/portaAND.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/portaAND.v
 L0 1
@@ -414,7 +414,7 @@ R34
 IFXFLM;b9eP3QljI0zYbf=2
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/portaOR.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/portaOR.v
 L0 1
@@ -430,7 +430,7 @@ R16
 R17
 nporta@o@r
 Pram_constants
-R22
+R0
 R4
 R25
 R26
@@ -535,7 +535,7 @@ R34
 I<_8SAHigL]^7:c85oF`0h3
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/sEwithzero16x32.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/sEwithzero16x32.v
 L0 1
@@ -557,7 +557,7 @@ R34
 I9ccV]Q2:ZFofQ6o?cj>JN0
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/shift26x28.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/shift26x28.v
 L0 1
@@ -578,7 +578,7 @@ R34
 Ic[8d[Y>XWhcznhSIH4n4e1
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Shift32x32.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Shift32x32.v
 L0 1
@@ -600,7 +600,7 @@ R34
 IYJe85zU]NHKQEm0^X[kcG2
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/signExtend16x32.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/signExtend16x32.v
 L0 1
@@ -622,7 +622,7 @@ R34
 I:LIiG?[=G<53C6d@^KmJk2
 R14
 R4
-R0
+R18
 8C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/signExtend1x32.v
 FC:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/signExtend1x32.v
 L0 1

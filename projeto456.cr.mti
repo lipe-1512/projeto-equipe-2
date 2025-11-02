@@ -47,6 +47,14 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	mux4x1
 
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity Instr_Reg
+-- Compiling architecture behavioral_arch of Instr_Reg
+
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/portaAND.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/portaAND.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module portaAND
@@ -60,14 +68,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	mux6x1
-
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Instr_Reg.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity Instr_Reg
--- Compiling architecture behavioral_arch of Instr_Reg
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/ula32.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/ula32.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -96,13 +96,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity RegDesloc
 -- Compiling architecture behavioral_arch of RegDesloc
 
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module mux9x1
-
-Top level modules:
-	mux9x1
-
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Banco_reg.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Banco_reg.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -111,6 +104,13 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity Banco_reg
 -- Compiling architecture behavioral_arch of Banco_reg
+
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux9x1.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module mux9x1
+
+Top level modules:
+	mux9x1
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Memoria.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/Memoria.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -151,6 +151,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	sEwithzero16x32
+
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/controlUnit.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/controlUnit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module controlUnit
+
+Top level modules:
+	controlUnit
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux2x1_32.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/sistemas digitais/projeto equipe 2/projeto-equipe-2-new/mux2x1_32.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016

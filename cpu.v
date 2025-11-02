@@ -66,7 +66,7 @@ controlUnit u_control (
     .OpCode(OpCode), .Funct(Funct),
     .zero(zero_flag), .neg(neg_flag), .lt(lt_flag), .gt(gt_flag), .et(et_flag),
     .mult_ready(mult_ready), .div_ready(div_ready),
-    
+
     // Saídas Conectadas
     .PCWriteCond(PCWriteCond),
     .IorD(IorD),
@@ -87,12 +87,15 @@ controlUnit u_control (
     .mem_reg(mem_reg),
     .load_control(load_control),
     .store_control(store_control),
+    .mult_start(mult_start),
+    .div_start(div_start),
     .hi_wr(hi_wr),
     .Lo_wr(lo_wr),
     .reset_out(reset_out),
     .shift_control(shift_control),
     .DataSrc(DataSrc),
-    .RegRs(RegRs)
+    .RegRs(RegRs),
+    .mem_wr_byte_enable(mem_wr_byte_enable)
 );
 
 // =================================================================
@@ -110,15 +113,15 @@ controlUnit u_control (
     // MUX para o endereço de memória (PC ou ALUOut)
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
     // Memória (assumindo que Memoria.vhd lida com a escrita de byte/half-word via mem_wr_byte_enable)
-    Memoria main_memory (.Clock(clk), .Wr(mem_wr_byte_enable), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
+    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
     // Registrador de Instrução
-    Instr_Reg ir_reg (.Clk(clk), .Reset(reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), .Instr_out(IR_full));
+    Instr_Reg ir_reg (.Clk(clk), .Reset(reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), .Instr31_26(IR_full[31:26]), .Instr25_21(IR_full[25:21]), .Instr20_16(IR_full[20:16]), .Instr15_0(IR_full[15:0]));
 
     // --- Banco de Registradores ---
     // MUX para o registrador de leitura 1 (rs ou R29 para pilha)
     mux2x1 #(.WIDTH(5)) mux_read_reg1 (.sel(RegRs), .in0(rs), .in1(5'd29), .out(ReadReg1_final));
     // Banco de Registradores
-    Reg_File reg_file (.clk(clk), .wr_reg(reg_wr), .rs(ReadReg1_final), .rt(rt), .rd(rd), .write_reg(WriteReg_mux_out), .write_data(Write_data_to_regs), .read_data1(Regs_read_data1), .read_data2(Regs_read_data2));
+    Banco_reg reg_file (.Clk(clk), .Reset(reset), .RegWrite(reg_wr), .ReadReg1(ReadReg1_final), .ReadReg2(rt), .WriteReg(WriteReg_mux_out), .WriteData(Write_data_to_regs), .ReadData1(Regs_read_data1), .ReadData2(Regs_read_data2));
     
     // --- Registradores A e B ---
     Registrador A_reg (.Clk(clk), .Reset(reset), .Load(wr_A), .Entrada(Regs_read_data1), .Saida(A_out));
@@ -129,7 +132,7 @@ controlUnit u_control (
     mux4x1 #(.WIDTH(5)) mux_write_reg (.sel(reg_dst), .in0(rt), .in1(rd), .in2(5'd29), .in3(5'd31), .out(WriteReg_mux_out));
     
     // --- Extensão de Sinal ---
-    Sign_Extender sign_ext (.in(IR_full[15:0]), .out(SignExt_out));
+    signExtend16x32 sign_ext (.in(IR_full[15:0]), .out(SignExt_out));
     
     // --- Shift 26 ---
     wire [25:0] shift_in = IR_full[25:0];
@@ -140,10 +143,10 @@ controlUnit u_control (
     mux3x1 #(.WIDTH(32)) mux_alu_src_a (.sel(Alu_Src_A), .in0(PC_out), .in1(A_out), .in2(Regs_read_data1), .out(ALUSrcA_mux_out));
     
     // MUX para a entrada B da ALU (B_out, 4, SignExt, SignExt << 2)
-    mux4x1 #(.WIDTH(32)) mux_alu_src_b (.sel(Alu_Src_B), .in0(B_out), .in1(32'd4), .in2(SignExt_out), .in3({SignExt_out[29:0], 2'b00}), .out(ALUSrcB_mux_out));
+    mux4x1 #(.WIDTH(32)) mux_alu_src_b (.sel(Alu_Src_B[1:0]), .in0(B_out), .in1(32'd4), .in2(SignExt_out), .in3({SignExt_out[29:0], 2'b00}), .out(ALUSrcB_mux_out));
     
     // Instanciação da ALU
-    ALU alu (.A(ALUSrcA_mux_out), .B(ALUSrcB_mux_out), .Alu_Op(Alu_Op), .Result(ALU_result), .Zero(zero_flag), .Overflow(overflow_flag), .Neg(neg_flag), .Et(et_flag), .Gt(gt_flag), .Lt(lt_flag));
+    Ula32 alu (.A(ALUSrcA_mux_out), .B(ALUSrcB_mux_out), .Seletor(Alu_Op), .S(ALU_result), .Overflow(overflow_flag), .Negativo(neg_flag), .z(et_flag), .Igual(zero_flag), .Maior(gt_flag), .Menor(lt_flag));
     
     // --- Registrador ALUOut ---
     Registrador ALUOut_reg (.Clk(clk), .Reset(reset), .Load(Alu_out_wr), .Entrada(ALU_result), .Saida(ALUOut_out));
