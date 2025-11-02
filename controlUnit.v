@@ -254,7 +254,7 @@ always @(posedge clk or posedge reset) begin
                 end
             end
             MFHI_state: begin
-                if (counter == 6'b000000) begin
+                if (counter == 6'b000001) begin
                     state <= fetch;
                     counter <= 6'b000000;
                 end else begin
@@ -262,7 +262,7 @@ always @(posedge clk or posedge reset) begin
                 end
             end
             MFLO_state: begin
-                if (counter == 6'b000000) begin
+                if (counter == 6'b000001) begin
                     state <= fetch;
                     counter <= 6'b000000;
                 end else begin
@@ -499,7 +499,7 @@ always @(*) begin
                     reg_wr = 1'b1;
                 end
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         SUB_state: begin
@@ -516,7 +516,7 @@ always @(*) begin
                     reg_wr = 1'b1;
                 end
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         AND_state: begin
@@ -530,7 +530,7 @@ always @(*) begin
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         OR_state: begin
@@ -544,7 +544,7 @@ always @(*) begin
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         SLT_state: begin
@@ -558,7 +558,7 @@ always @(*) begin
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         MULT_state: begin
@@ -616,7 +616,7 @@ always @(*) begin
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         SRA_state: begin
@@ -630,7 +630,7 @@ always @(*) begin
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         PUSH_state: begin
@@ -697,7 +697,7 @@ always @(*) begin
                 reg_dst = 2'b00;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000100) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         SW_state: begin
@@ -727,7 +727,7 @@ always @(*) begin
                     reg_wr = 1'b1;
                 end
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         ANDI_state: begin
@@ -741,7 +741,7 @@ always @(*) begin
                 reg_dst = 2'b00;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         ORI_state: begin
@@ -755,7 +755,7 @@ always @(*) begin
                 reg_dst = 2'b00;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         SLTI_state: begin
@@ -769,7 +769,7 @@ always @(*) begin
                 reg_dst = 2'b00;
                 reg_wr = 1'b1;
             end else if (counter == 6'b000010) begin
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         BEQ_state: begin
@@ -813,7 +813,7 @@ always @(*) begin
             end else if (counter == 6'b000010) begin
                 PC_Source = 3'b011;
                 PC_wr = 1'b1;
-                reg_wr = 1'b1;
+                //reg_wr = 1'b1;
             end
         end
         op404_state: begin
