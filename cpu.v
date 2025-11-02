@@ -136,7 +136,7 @@ controlUnit u_control (
     
     // --- Shift 26 ---
     wire [25:0] shift_in = IR_full[25:0];
-    assign Shift26_out = shift_in << 2;
+  assign Shift26_out = {shift_in, 2'b00};
     
     // --- ALU ---
     // MUX para a entrada A da ALU (PC, A_out, Data1)
@@ -178,6 +178,6 @@ controlUnit u_control (
     // Registrador EPC
     Registrador EPC_reg (.Clk(clk), .Reset(reset), .Load(EPC_wr), .Entrada(PC_out), .Saida(EPC_out));
     // Lógica para OpCode404_flag (simplificada, deve ser mais robusta)
-    assign OpCode404_flag = (OpCode == 6'b000000) ? (Funct != 6'b000000 && Funct != 6'b000011 && Funct != 6'b100000 && Funct != 6'b100010 && Funct != 6'b100100 && Funct != 6'b100101 && Funct != 6'b101010 && Funct != 6'b011000 && Funct != 6'b011010 && Funct != 6'b010000 && Funct != 6'b010010 && Funct != 6'b001000 && Funct != 6'b000101 && Funct != 6'b000110) : (OpCode != 6'b100011 && OpCode != 6'b100000 && OpCode != 6'b101011 && OpCode != 6'b101000 && OpCode != 6'b001000 && OpCode != 6'b001100 && OpCode != 6'b001101 && OpCode != 6'b001010 && OpCode != 6'b000100 && OpCode != 6'b000101 && OpCode != 6'b000010 && OpCode != 6'b000011);
+    assign OpCode404_flag = (OpCode == 6'b000000) ? ~(Funct == 6'b100000 || Funct == 6'b100010 || Funct == 6'b100100 || Funct == 6'b100101 || Funct == 6'b101010 || Funct == 6'b011000 || Funct == 6'b011010 || Funct == 6'b010000 || Funct == 6'b010010 || Funct == 6'b001000 || Funct == 6'b000000 || Funct == 6'b000011 || Funct == 6'b000101 || Funct == 6'b000110) : ~(OpCode == 6'b100011 || OpCode == 6'b100000 || OpCode == 6'b101011 || OpCode == 6'b101000 || OpCode == 6'b001000 || OpCode == 6'b001100 || OpCode == 6'b001101 || OpCode == 6'b001010 || OpCode == 6'b000100 || OpCode == 6'b000101 || OpCode == 6'b000010 || OpCode == 6'b000011);
     
 endmodule
