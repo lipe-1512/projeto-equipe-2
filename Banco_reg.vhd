@@ -93,23 +93,23 @@ ARCHITECTURE behavioral_arch OF Banco_reg IS
 	BEGIN
 	
 	-- selecao do primeiro registrador
-	ReadData1 <= Cluster(to_integer(unsigned(ReadReg1)));		
+	ReadData1 <= (others => '0') when to_integer(unsigned(ReadReg1)) = 0 else Cluster(to_integer(unsigned(ReadReg1)));		
 
 	-- selecao do segundo registrador 
-	ReadData2 <= Cluster(to_integer(unsigned(ReadReg2)));
+	ReadData2 <= (others => '0') when to_integer(unsigned(ReadReg2)) = 0 else Cluster(to_integer(unsigned(ReadReg2)));
 
 	--  Clocked Process
 	PROCESS (Clk,Reset)
 		BEGIN			
 ------------------------------------------- Reset inicializa o conjunto de registradores
-			IF(Reset = '1') THEN
-				FOR I IN 0 TO 31 LOOP
-					Cluster(I) <= "00000000000000000000000000000000";
-				END LOOP;			
+IF(Reset = '1') THEN
+					Cluster <= (others => (others => '0'));
 ------------------------------------------ In�cio do processo relacionado ao clock 
-			ELSIF (Clk = '1' AND clk'EVENT) THEN
+			ELSIF (rising_edge(Clk)) THEN
 				IF(RegWrite = '1') THEN
-					Cluster(to_integer(unsigned(WriteReg))) <= WriteData;
+					if to_integer(unsigned(WriteReg)) /= 0 then
+							Cluster(to_integer(unsigned(WriteReg))) <= WriteData;
+						end if;
 				END IF;
 			END IF;
 ------------------------------------------ Fim do processo relacionado ao clock 

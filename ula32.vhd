@@ -194,10 +194,7 @@ architecture behavioral of Ula32 is
 
 			with Seletor select
 			
-			Overflow <= overflow_temp	when "001",  -- Soma
-						carry_temp(31) xor carry_temp(30) 	when "010",  -- Substração
-						carry_temp(31) xor carry_temp(30) 	when "100",  -- Incremento
-						'0' 	when others; -- Outros
+Overflow <= overflow_temp when Seletor = "001" or Seletor = "010" or Seletor = "100" else '0';
 
 --------------------------------------------------------------------------------
 --		Regiao que calcula a compara��o										  --	

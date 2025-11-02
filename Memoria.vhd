@@ -160,34 +160,69 @@ BEGIN
 	dataout <= dataoutS((rotdelay2 * 8 - 1) DOWNTO 0) & dataoutS(31 DOWNTO (rotdelay2 * 8));
 
 	-- Propaga valor da quantidade de rotações para ser usado na saída
-	PROCESS (clockS)
-	BEGIN
-		IF rising_edge(clockS) THEN
-			rotdelay1 <= rotdelay0;
-			rotdelay2 <= rotdelay1;
-		END IF;
-	END PROCESS;
+PROCESS (clockS)
+		BEGIN
+			IF rising_edge(clockS) THEN
+				rotdelay1 <= rotdelay0;
+				rotdelay2 <= rotdelay1;
+			END IF;
+		END PROCESS;
 
 	-- Bancos de memórias (cada banco possui 256 bytes)
 
 	-- Armazena os endereços no formato 4n
-	MEM : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS0, Address => addrN0, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS0);
+type RAM_TYPE is array (0 to 2**ADDR_WIDTH - 1) of STD_LOGIC_VECTOR(DATA_WIDTH - 1 downto 0);
+	signal RAM0, RAM1, RAM2, RAM3 : RAM_TYPE;
+
+	-- Inicialização da memória (simplificada, pois o ModelSim não suporta lpm_file facilmente)
+	-- Para simulação, o arquivo .mif deve ser carregado manualmente ou via script do ModelSim.
+	-- Aqui, apenas a lógica de leitura/escrita é implementada.
+
+	-- Memória 0 (4n)
+	process (clockS)
+	begin
+		if rising_edge(clockS) then
+			if wrS = '1' then
+				RAM0(to_integer(unsigned(addrN0))) <= datainS0;
+			end if;
+		end if;
+	end process;
+	dataoutS0 <= RAM0(to_integer(unsigned(addrN0)));
 
 	-- Armazena os endereços no formato 4n + 1
-	MEM_plus_One : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS1, Address => addrN1, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS1);
+	-- Memória 1 (4n + 1)
+	process (clockS)
+	begin
+		if rising_edge(clockS) then
+			if wrS = '1' then
+				RAM1(to_integer(unsigned(addrN1))) <= datainS1;
+			end if;
+		end if;
+	end process;
+	dataoutS1 <= RAM1(to_integer(unsigned(addrN1)));
 
 	-- Armazena os endereços no formato 4n + 2
-	MEM_plus_Two : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS2, Address => addrN2, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS2);
+	-- Memória 2 (4n + 2)
+	process (clockS)
+	begin
+		if rising_edge(clockS) then
+			if wrS = '1' then
+				RAM2(to_integer(unsigned(addrN2))) <= datainS2;
+			end if;
+		end if;
+	end process;
+	dataoutS2 <= RAM2(to_integer(unsigned(addrN2)));
 
 	-- Armazena os endereços no formato 4n + 3
-	MEM_plus_Three : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
-	PORT MAP(data => datainS3, Address => addrN3, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS3);
+	-- Memória 3 (4n + 3)
+	process (clockS)
+	begin
+		if rising_edge(clockS) then
+			if wrS = '1' then
+				RAM3(to_integer(unsigned(addrN3))) <= datainS3;
+			end if;
+		end if;
+	end process;
+	dataoutS3 <= RAM3(to_integer(unsigned(addrN3)));
 
 END behavioral_arch;
