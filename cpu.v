@@ -1,4 +1,4 @@
-module cpu;
+module cpu(input clk, input reset);
 
 // Wires for data paths
 wire [31:0] PC_out, PC_in;
@@ -29,7 +29,7 @@ wire [31:0] HI_in, LO_in;
 wire PC_wr, PCWriteCond, and_out, PC_enable;
 wire [2:0] IorD;
 wire mem_wr;
-wire  mem_wr_byte;
+wire [3:0] mem_wr_byte;
 wire ir_wr;
 wire RegRs, ShiftAmt, ShiftSrc;
 wire [1:0] reg_dst;
@@ -73,22 +73,6 @@ wire [31:0] load_data;
 
 // Exception cause register
 wire [31:0] cause_out;
-
-// Internal signals for simulation
-reg clk;
-reg reset;
-
-// Clock and reset generation for simulation
-initial begin
-    clk = 0;
-    reset = 1;
-    #100 reset = 0; // Reset for 100ns
-    #5000 $finish; // End simulation after 5000ns
-end
-
-always #10 clk = ~clk; // 50MHz clock
-
-// Instantiate components
 
 // PC
 Registrador PC_(
@@ -346,7 +330,7 @@ Banco_Reg bankReg(
 // Memory
 Memoria Memory(
     .Clock(clk),
-    .Wr(mem_wr_byte),
+    .Wr(mem_wr),
     .Address(memory_address_mux),
     .Datain(store_data),
     .Dataout(Memory_out)
@@ -446,7 +430,12 @@ assign mem_wr_byte = (store_control == 2'b00) ? {4{mem_wr}} : // sw
 
 // Load size logic
 assign load_data = (load_control == 2'b00) ? Memory_out : // lw
-                  (load_control == 2'b01) ? {{24{Memory_out[7]}}, Memory_out[7:0]} : // lb
+                  (load_control == 2'b01) ? (
+                      (ALUOut_out[1:0] == 2'b00) ? {{24{Memory_out[7]}}, Memory_out[7:0]} :
+                      (ALUOut_out[1:0] == 2'b01) ? {{24{Memory_out[15]}}, Memory_out[15:8]} :
+                      (ALUOut_out[1:0] == 2'b10) ? {{24{Memory_out[23]}}, Memory_out[23:16]} :
+                      {{24{Memory_out[31]}}, Memory_out[31:24]} // 2'b11
+                  ) :
                   Memory_out;
 
 endmodule

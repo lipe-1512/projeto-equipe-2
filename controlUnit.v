@@ -105,8 +105,8 @@ parameter PUSH_F = 6'b000101;
 parameter POP_F = 6'b000110;
 
 // Registradores de estado
-reg [5:0] state;
-reg [5:0] counter;
+reg [5:0] state = reset_start;
+reg [5:0] counter = 6'b000000;
 
 // Lógica da FSM
 always @(posedge clk or posedge reset) begin
@@ -225,11 +225,17 @@ always @(posedge clk or posedge reset) begin
                 end
             end
             MULT_state: begin
-                if (counter == 6'b000010) begin
-                    state <= fetch;
-                    counter <= 6'b000000;
-                end else begin
+                if (counter == 6'b000000) begin
+                    // Start multiplication
                     counter <= counter + 1;
+                end else if (counter == 6'b000001) begin
+                    // Wait for ready
+                    if (mult_ready) begin
+                        state <= fetch;
+                        counter <= 6'b000000;
+                    end else begin
+                        counter <= counter; // Stay in wait
+                    end
                 end
             end
             DIV_state: begin
@@ -580,21 +586,21 @@ always @(*) begin
             end
         end
         MFHI_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 mem_reg = 3'b100;
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end
         end
         MFLO_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 mem_reg = 3'b101;
                 reg_dst = 2'b01;
                 reg_wr = 1'b1;
             end
         end
         JR_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 PC_Source = 3'b010;
                 PC_wr = 1'b1;
             end
@@ -799,19 +805,19 @@ always @(*) begin
             end
         end
         JAL_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 // Reg[31] = PC + 4
                 mem_reg = 3'b110;
                 reg_dst = 2'b10;
                 reg_wr = 1'b1;
-            end else if (counter == 6'b000001) begin
+            end else if (counter == 6'b000010) begin
                 PC_Source = 3'b011;
                 PC_wr = 1'b1;
                 reg_wr = 1'b1;
             end
         end
         op404_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 EPC_wr = 1'b1;
                 cause_control = 2'b10;
                 PC_Source = 3'b100;
@@ -819,7 +825,7 @@ always @(*) begin
             end
         end
         overflow_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 EPC_wr = 1'b1;
                 cause_control = 2'b00;
                 PC_Source = 3'b100;
@@ -827,7 +833,7 @@ always @(*) begin
             end
         end
         zero_div_state: begin
-            if (counter == 6'b000000) begin
+            if (counter == 6'b000001) begin
                 EPC_wr = 1'b1;
                 cause_control = 2'b01;
                 PC_Source = 3'b100;

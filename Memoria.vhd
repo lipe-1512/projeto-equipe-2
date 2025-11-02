@@ -208,22 +208,22 @@ BEGIN
 
 	-- Armazena os endereços no formato 4n
 	MEM : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
 	PORT MAP(data => datainS0, Address => addrN0, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS0);
 
 	-- Armazena os endereços no formato 4n + 1
 	MEM_plus_One : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
 	PORT MAP(data => datainS1, Address => addrN1, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS1);
 
 	-- Armazena os endereços no formato 4n + 2
 	MEM_plus_Two : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
 	PORT MAP(data => datainS2, Address => addrN2, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS2);
 
 	-- Armazena os endereços no formato 4n + 3
 	MEM_plus_Three : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone")
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone", lpm_hint => "ENABLE_RUNTIME_MOD=NO")
 	PORT MAP(data => datainS3, Address => addrN3, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS3);
 
 END behavioral_arch;
