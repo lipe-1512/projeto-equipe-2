@@ -116,8 +116,11 @@ parameter POP_F = 6'b000110;
 // Registradores de estado
 reg [5:0] state;
 
+ initial begin
+        reset_out = 1'b1;
+    end
 // Lógica da FSM
-always @(posedge clk or posedge reset) begin
+always @(posedge clk) begin
     if (reset) begin
         state <= reset_start;
     end else begin
