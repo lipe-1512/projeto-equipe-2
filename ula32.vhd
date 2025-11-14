@@ -192,10 +192,15 @@ architecture behavioral of Ula32 is
 
 			overflow_temp <= carry_temp(31) xor carry_temp(30);
 
-			Overflow <= overflow_temp when (Seletor = "001" or Seletor = "010" or Seletor = "100") else '0';
+			with Seletor select
+			
+			Overflow <= overflow_temp	when "001",  -- Soma
+						carry_temp(31) xor carry_temp(30) 	when "010",  -- Substração
+						carry_temp(31) xor carry_temp(30) 	when "100",  -- Incremento
+						'0' 	when others; -- Outros
 
 --------------------------------------------------------------------------------
---		Regiao que calcula a compara��o										  --	 
+--		Regiao que calcula a compara��o										  --	
 --------------------------------------------------------------------------------
 
 -- No codigo da comparacao (110) sera executada a subtracao na parte relativa
