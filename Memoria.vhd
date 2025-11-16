@@ -172,7 +172,7 @@ BEGIN
 
 	-- Armazena os endereços no formato 4n
 	MEM : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone V")
 	PORT MAP(data => datainS0, Address => addrN0, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS0);
 
 	-- Armazena os endereços no formato 4n + 1
