@@ -57,6 +57,12 @@ wire zero_flag, overflow_flag, neg_flag, et_flag, gt_flag, lt_flag;
 wire OpCode404_flag = 1'b0; // Deve ser gerado por lógica externa ou ser um sinal de controle
 wire div_zero_flag;
 
+//wires para as saídas do Instr_Reg
+wire [5:0] ir_31_26;
+wire [4:0] ir_25_21;
+wire [4:0] ir_20_16;
+wire [15:0] ir_15_0;
+
 // =================================================================
 // Instanciação da Unidade de Controle - CORRIGIDA
 // =================================================================
@@ -115,8 +121,10 @@ controlUnit u_control (
     // Memória (assumindo que Memoria.vhd lida com a escrita de byte/half-word via mem_wr_byte_enable)
     Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
     // Registrador de Instrução
-    Instr_Reg ir_reg (.Clk(clk), .Reset(reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), .Instr31_26(IR_full[31:26]), .Instr25_21(IR_full[25:21]), .Instr20_16(IR_full[20:16]), .Instr15_0(IR_full[15:0]));
+    Instr_Reg ir_reg (.Clk(clk), .Reset(reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
+                      .Instr31_26(ir_31_26), .Instr25_21(ir_25_21), .Instr20_16(ir_20_16), .Instr15_0(ir_15_0));
 
+    assign IR_full = {ir_31_26, ir_25_21, ir_20_16, ir_15_0};
     // --- Banco de Registradores ---
     // MUX para o registrador de leitura 1 (rs ou R29 para pilha)
     mux2x1 #(.WIDTH(5)) mux_read_reg1 (.sel(RegRs), .in0(rs), .in1(5'd29), .out(ReadReg1_final));

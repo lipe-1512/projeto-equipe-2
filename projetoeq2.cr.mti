@@ -47,13 +47,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	mux4x1
 
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module cpu
-
-Top level modules:
-	cpu
-
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaAND.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaAND.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module portaAND
@@ -84,15 +77,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling entity Ula32
 -- Compiling architecture behavioral of Ula32
-
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity Memoria_tb
--- Compiling architecture behavioral of Memoria_tb
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/RegDesloc.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/RegDesloc.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
