@@ -47,6 +47,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	mux4x1
 
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module cpu
+
+Top level modules:
+	cpu
+
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaAND.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaAND.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module portaAND
@@ -142,13 +149,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	sEwithzero16x32
-
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/controlUnit.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/controlUnit.v}
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module controlUnit
-
-Top level modules:
-	controlUnit
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
