@@ -1,6 +1,6 @@
 module cpu (
-    input clk,
-    input reset
+    input clk//,
+    //input reset
 );
 
 // =================================================================
@@ -67,7 +67,7 @@ wire [15:0] ir_15_0;
 // Instanciação da Unidade de Controle - CORRIGIDA
 // =================================================================
 controlUnit u_control (
-    .clk(clk), .reset(reset),
+    .clk(clk), .reset(reset_out),
     .O(overflow_flag), .OpCode404_flag(OpCode404_flag), .div_zero(div_zero_flag),
     .OpCode(OpCode), .Funct(Funct),
     .zero(zero_flag), .neg(neg_flag), .lt(lt_flag), .gt(gt_flag), .et(et_flag),
