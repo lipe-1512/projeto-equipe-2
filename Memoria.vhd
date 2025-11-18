@@ -177,17 +177,17 @@ BEGIN
 
 	-- Armazena os endereços no formato 4n + 1
 	MEM_plus_One : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone V")
 	PORT MAP(data => datainS1, Address => addrN1, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS1);
 
-	-- Armazena os endereços no formato 4n + 2
+	-- Armazena os endereços no formato 4n + 2///
 	MEM_plus_Two : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone V")
 	PORT MAP(data => datainS2, Address => addrN2, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS2);
 
 	-- Armazena os endereços no formato 4n + 3
 	MEM_plus_Three : lpm_ram_dq
-	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE)
+	GENERIC MAP(lpm_widthad => ADDR_WIDTH, lpm_width => DATA_WIDTH, lpm_file => INIT_FILE, intended_device_family => "Cyclone V")
 	PORT MAP(data => datainS3, Address => addrN3, we => wrS, inclock => clockS, outclock => clockS, q => dataoutS3);
 
 END behavioral_arch;

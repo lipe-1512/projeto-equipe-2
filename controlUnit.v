@@ -8,38 +8,38 @@ module controlUnit (
     input wire mult_ready, div_ready, // Sinais de pronto do Multiplicador/Divisor
 
     // Sinais de Controle de Saída
-    output reg[2:0] IorD,
-    output reg mem_wr,
-    output reg[1:0] cause_control,
-    output reg ir_wr,
-    output reg reg_wr,
-    output reg wr_A,
-    output reg wr_B,
-    output reg[2:0] mem_reg,
-    output reg[1:0] reg_dst,
-    output reg[1:0] Alu_Src_A,
-    output reg[2:0] Alu_Src_B,
-    output reg[2:0] Alu_Op,
-    output reg PCWriteCond,
-    output reg Alu_out_wr,
-    output reg[2:0] PC_Source,
-    output reg PC_wr,
-    output reg EPC_wr,
-    output reg [1:0] load_control,
-    output reg [1:0] store_control,
-    output reg mult_start,
-    output reg div_start,
-    output reg Lo_wr,
-    output reg hi_wr,
-    output reg reset_out,
-    output reg [2:0] shift_control,
-    output reg [3:0] DataSrc,
-    output reg RegRs,
-    output reg [3:0] mem_wr_byte_enable
+    output reg[2:0] IorD = 3'b000,
+    output reg mem_wr = 1'b0,
+    output reg[1:0] cause_control = 2'b00,
+    output reg ir_wr = 1'b0,
+    output reg reg_wr = 1'b0,
+    output reg wr_A = 1'b0,
+    output reg wr_B = 1'b0,
+    output reg[2:0] mem_reg = 3'b000,
+    output reg[1:0] reg_dst = 2'b00,
+    output reg[1:0] Alu_Src_A = 2'b00,
+    output reg[2:0] Alu_Src_B = 3'b000,
+    output reg[2:0] Alu_Op = 3'b000,
+    output reg PCWriteCond = 1'b0,
+    output reg Alu_out_wr = 1'b0,
+    output reg[2:0] PC_Source = 3'b000,
+    output reg PC_wr = 1'b0,
+    output reg EPC_wr = 1'b0,
+    output reg [1:0] load_control = 2'b00,
+    output reg [1:0] store_control = 2'b00,
+    output reg mult_start = 1'b0,
+    output reg div_start = 1'b0,
+    output reg Lo_wr = 1'b0,
+    output reg hi_wr = 1'b0,
+    output reg reset_out = 1'b0,
+    output reg [2:0] shift_control = 3'b000,
+    output reg [3:0] DataSrc = 4'b0000,
+    output reg RegRs = 1'b0,
+    output reg [3:0] mem_wr_byte_enable = 4'b0000
 );
 
 // Parâmetros para estados
-parameter reset_start = 6'b111111;
+parameter reset_start = 6'b000000;
 parameter fetch = 6'b000001;
 parameter decode = 6'b000010;
 parameter op404_state = 6'b000011;
@@ -114,11 +114,14 @@ parameter PUSH_F = 6'b000101;
 parameter POP_F = 6'b000110;
 
 // Registradores de estado
-reg [5:0] state = reset_start;
+reg [5:0] state;
 
+initial begin
+    state = reset_start;
+end
 
 // Lógica da FSM
-always @(posedge clk) begin
+always @(posedge clk or posedge reset) begin
     if (reset) begin
         state <= reset_start;
     end else begin
