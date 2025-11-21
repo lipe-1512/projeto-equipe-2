@@ -9,6 +9,6 @@ module mux6x1 #(parameter WIDTH = 32) (
                  (sel == 3'b011) ? in3 :
                  (sel == 3'b100) ? in4 :
                  (sel == 3'b101) ? in5 :
-                 in0;
+                 {WIDTH{1'b0}};
 
 endmodule

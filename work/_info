@@ -22,9 +22,9 @@ V:adHbk0Ym0TAKYW83J5Y[3
 !s100 hZ46CT_BzQl8j]02_Vf=o2
 Z7 OV;C;10.5b;63
 32
-Z8 !s110 1763746729
+Z8 !s110 1763751247
 !i10b 1
-Z9 !s108 1763746729.000000
+Z9 !s108 1763751247.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Banco_reg.vhd|
 Z11 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Banco_reg.vhd|
 !i113 1
@@ -56,7 +56,7 @@ R8
 IjEO<okolWZ<UTlQ8ACKn23
 Z14 VDg1SIo80bB@j0V0VzS_@n1
 R4
-w1763734066
+w1763748734
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/controlUnit.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/controlUnit.v
 L0 1
@@ -72,7 +72,7 @@ Z16 o-work work
 Z17 tCvgOpt 0
 ncontrol@unit
 vcpu
-R8
+!s110 1763749074
 !i10b 1
 !s100 9mI]l^Q6km_J<DjRflX0i2
 IN8XgmMIcQaL;zK_5n<UjQ3
@@ -86,7 +86,7 @@ R15
 r1
 !s85 0
 31
-R9
+!s108 1763749074.000000
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v|
 !i113 1
@@ -153,7 +153,7 @@ R23
 R12
 R13
 Ememoria
-Z24 w1763746708
+Z24 w1763748622
 Z25 DPx4 work 13 ram_constants 0 22 fM5VG7Uh1aeMYE9LkAJ3B1
 Z26 DPx3 lpm 14 lpm_components 0 22 BZZBj]8LhndN7CkCjD@L`2
 R1
@@ -168,11 +168,11 @@ VmkofzOhH?Zn05DR;dY2OP0
 !s100 gT17f6X9FdmoGl_MYE;1W0
 R7
 32
-R8
+Z29 !s110 1763751248
 !i10b 1
 R9
-Z29 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\Users\felip\OneDrive\Documents\faculdade\infra hard\projeto\projeto-equipe-2\Memoria.vhd|
-Z30 !s107 C:\Users\felip\OneDrive\Documents\faculdade\infra hard\projeto\projeto-equipe-2\Memoria.vhd|
+Z30 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:\Users\felip\OneDrive\Documents\faculdade\infra hard\projeto\projeto-equipe-2\Memoria.vhd|
+Z31 !s107 C:\Users\felip\OneDrive\Documents\faculdade\infra hard\projeto\projeto-equipe-2\Memoria.vhd|
 !i113 1
 R12
 R13
@@ -189,11 +189,11 @@ V_4_JT9BJiV2z3@YQdd>;@1
 !s100 YM_R?P]>D<jI9NFe>`7zA2
 R7
 32
-R8
+R29
 !i10b 1
 R9
-R29
 R30
+R31
 !i113 1
 R12
 R13
@@ -203,19 +203,19 @@ R1
 R2
 R3
 R4
-Z31 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd
-Z32 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd
+Z32 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd
+Z33 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd
 l0
 L5
 VkmT_lFn?fZSb=fz=FURVD2
 !s100 A4Pm4FWKLQz9hFQiA:UH01
 R7
 32
-Z33 !s110 1763139281
+Z34 !s110 1763139281
 !i10b 1
-Z34 !s108 1763139281.000000
-Z35 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd|
-Z36 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd|
+Z35 !s108 1763139281.000000
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd|
+Z37 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria_tb.vhd|
 !i113 1
 R12
 R13
@@ -230,16 +230,16 @@ VG?T9llo3AkQ^I33Kc80<Y1
 !s100 VO5iaP?oGBg7f6c<zPmCh1
 R7
 32
-R33
-!i10b 1
 R34
+!i10b 1
 R35
 R36
+R37
 !i113 1
 R12
 R13
 vmultiplier
-R8
+R29
 !i10b 1
 !s100 LZma<b1@h2X:EXJG[QWSR1
 I9XlZ^9:N7Nc4>1nYJnlIE3
@@ -253,20 +253,20 @@ R15
 r1
 !s85 0
 31
-R9
+Z38 !s108 1763751248.000000
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/multiplier.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/multiplier.v|
 !i113 1
 R16
 R17
 vmux2x1
-R8
+R29
 !i10b 1
-!s100 ^@J13nIJ4O8dLeF6V_oH=2
-I<b5:o8UVAdA^9?dihgXmb3
+!s100 L>]zZ:[>]QmLT8VldZRM<1
+IG>o8X66S?Y[dOTMf6c3:E2
 R14
 R4
-R18
+w1763748913
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1.v
 L0 1
@@ -274,20 +274,20 @@ R15
 r1
 !s85 0
 31
-R9
+R38
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1.v|
 !i113 1
 R16
 R17
 vmux2x1_32
-R8
+R29
 !i10b 1
-!s100 5zf;L0PYm;ZLk7[jBV2Wo2
-I>bNV?NETjVF@>6EMIOHk^2
+!s100 <:n8Mn0VZb`Mh@jRZG30o0
+I>]LgQXC7C:9b^ii6a9Y4R0
 R14
 R4
-R18
+w1763748947
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v
 L0 1
@@ -295,20 +295,20 @@ R15
 r1
 !s85 0
 31
-R9
+R38
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v|
 !i113 1
 R16
 R17
 vmux3x1
-R8
+R29
 !i10b 1
-!s100 <d]fca1bX?kd8b_T1n;TP3
-IS6TJbCGIR?5h8B?z6G27V3
+!s100 J>Se49Hg:@Zl_KcLNnk=[1
+II1j7Y=?_h=4U;`_HB2RPN0
 R14
 R4
-R18
+w1763748966
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux3x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux3x1.v
 L0 1
@@ -316,20 +316,20 @@ R15
 r1
 !s85 0
 31
-R9
+R38
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux3x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux3x1.v|
 !i113 1
 R16
 R17
 vmux4x1
-R8
+R29
 !i10b 1
-!s100 67I7dF5b0oTFHl?<6@1a]2
-IDZj5Y>WCVELlBmjP`dkIg2
+!s100 UzcOmZP54C2dk70F:;@aZ3
+IF@M1KEM2NZTSbmhL];VZ=1
 R14
 R4
-R18
+w1763748999
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux4x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux4x1.v
 L0 1
@@ -337,20 +337,20 @@ R15
 r1
 !s85 0
 31
-R9
+R38
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux4x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux4x1.v|
 !i113 1
 R16
 R17
 vmux6x1
-R8
+R29
 !i10b 1
-!s100 fN;jL5Y;il0;56iLX0aWS0
-I9`JihY_HkYU7HKZT[5bFK3
+!s100 2C`1K0nIlLca4Y^XkAUVS2
+IRz_?Wo59P4BldOmBah<XS2
 R14
 R4
-R18
+w1763749011
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v
 L0 1
@@ -358,20 +358,20 @@ R15
 r1
 !s85 0
 31
-R9
+R38
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v|
 !i113 1
 R16
 R17
 vmux9x1
-Z37 !s110 1763746730
+R29
 !i10b 1
-!s100 UOeYUYhAk5Z?DV0ZzACBM1
-IM9QocdJ??5Ue[ILWIc;]b3
+!s100 `28h5a<OZ]hb8DT8XM3d63
+IdW9nZan93NRmmXM1e?`>43
 R14
 R4
-R18
+w1763749060
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v
 L0 1
@@ -379,14 +379,14 @@ R15
 r1
 !s85 0
 31
-Z38 !s108 1763746730.000000
+R38
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v|
 !i113 1
 R16
 R17
 vportaAND
-R37
+R29
 !i10b 1
 !s100 ]6]QDAd5MoGNUe5aT27A`3
 INKTYgSiKF2c[Vd1>FE;bY1
@@ -408,7 +408,7 @@ R16
 R17
 nporta@a@n@d
 vportaOR
-R37
+R29
 !i10b 1
 !s100 fB5l:Z>JmG1^;iE:42TB?1
 Ie^nKOhY?^mn19U1azJ9b`2
@@ -440,11 +440,11 @@ VfM5VG7Uh1aeMYE9LkAJ3B1
 !s100 EZlbReQ5cH1;cnZ4g48d:0
 R7
 32
-R8
+R29
 !i10b 1
 R9
-R29
 R30
+R31
 !i113 1
 R12
 R13
@@ -462,7 +462,7 @@ Vn^6CTT0G6[TK<hMLAOdVE0
 !s100 h6S4QO2lP<LeKEbf`2MFI0
 R7
 32
-R37
+R29
 !i10b 1
 R38
 Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/RegDesloc.vhd|
@@ -481,7 +481,7 @@ VflJcc6I8[>b3gfjF3h[[f1
 !s100 I:Y0K;1oQWOb>1gf2HQe03
 R7
 32
-R37
+R29
 !i10b 1
 R38
 R42
@@ -502,7 +502,7 @@ VD=`aG^VOPEDP69ifb8G;52
 !s100 ^e8=Z<CbNTLXR@XGZJMQo3
 R7
 32
-R37
+R29
 !i10b 1
 R38
 Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Registrador.vhd|
@@ -520,7 +520,7 @@ VoT2NPGl`i9KgTA_SY;ceQ2
 !s100 @lmTd3@8]aX`mGc>7NAbV2
 R7
 32
-R37
+R29
 !i10b 1
 R38
 R47
@@ -529,7 +529,7 @@ R48
 R12
 R13
 vsEwithzero16x32
-R37
+R29
 !i10b 1
 !s100 ;YF^DXU<kiZLITA[WSdYb3
 IoKa`dONaWMg?5IE7zeeBL3
@@ -551,7 +551,7 @@ R16
 R17
 ns@ewithzero16x32
 vshift26x28
-R37
+R29
 !i10b 1
 !s100 h`1T0m=D^h3EG<zN;SN913
 IaOVz?2d8KNRTDPYVH_8lT2
@@ -572,7 +572,7 @@ R38
 R16
 R17
 vShift32x32
-R37
+R29
 !i10b 1
 !s100 M4ZAj=id`e<:KL7_<ijh63
 ITRCQJ9;5jE_[^DHQ<G]3@3
@@ -594,7 +594,7 @@ R16
 R17
 n@shift32x32
 vsignExtend16x32
-R37
+Z49 !s110 1763751249
 !i10b 1
 !s100 Jn=i[X8HCgo_zfJOMSc=C3
 ITYOmIUXR5nR`YT`34ADnP1
@@ -608,7 +608,7 @@ R15
 r1
 !s85 0
 31
-R38
+Z50 !s108 1763751249.000000
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/signExtend16x32.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/signExtend16x32.v|
 !i113 1
@@ -616,7 +616,7 @@ R16
 R17
 nsign@extend16x32
 vsignExtend1x32
-R37
+R49
 !i10b 1
 !s100 9Al7:ezC4GiMXl7X`A5JZ3
 I=ToJNBzk>[7;>EVU8bEOj2
@@ -638,24 +638,24 @@ R16
 R17
 nsign@extend1x32
 Eula32
-Z49 w1763133477
+Z51 w1763748593
 R1
 R2
 R3
 R4
-Z50 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd
-Z51 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd
+Z52 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd
+Z53 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd
 l0
 L70
 V7;A2o1dNA?ebYYPhMG1c70
 !s100 `T`IV8d5:=6dX5^lg]oam2
 R7
 32
-R37
+R49
 !i10b 1
-R38
-Z52 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd|
-Z53 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd|
+R50
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd|
+Z55 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd|
 !i113 1
 R12
 R13
@@ -663,18 +663,18 @@ Abehavioral
 R1
 R2
 R3
-Z54 DEx4 work 5 ula32 0 22 7;A2o1dNA?ebYYPhMG1c70
+Z56 DEx4 work 5 ula32 0 22 7;A2o1dNA?ebYYPhMG1c70
 l96
 L86
-Z55 VhDUi_mNh2[oS[:2HcEDN>0
-Z56 !s100 `6BCj1jhNY1a=kdKG23zo1
+Z57 VhDUi_mNh2[oS[:2HcEDN>0
+Z58 !s100 `6BCj1jhNY1a=kdKG23zo1
 R7
 32
-R37
+R49
 !i10b 1
-R38
-R52
-R53
+R50
+R54
+R55
 !i113 1
 R12
 R13

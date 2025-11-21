@@ -4,6 +4,8 @@ module mux2x1_32 (
     output [31:0] out
 );
 
-    assign out = sel ? in1 : in0;
+    assign out = (sel == 1'b1) ? in1 : 
+                (sel == 1'b0) ? in0 :
+                32'b0;
     
 endmodule

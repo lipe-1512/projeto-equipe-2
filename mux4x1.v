@@ -7,6 +7,7 @@ module mux4x1 #(parameter WIDTH = 32) (
     assign out = (sel == 2'b00) ? in0 :
                  (sel == 2'b01) ? in1 :
                  (sel == 2'b10) ? in2 :
-                 in3;
+                 (sel == 2'b11) ? in3 :
+                 {WIDTH{1'b0}};
 
 endmodule

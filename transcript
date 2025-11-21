@@ -1,5 +1,28 @@
-# vsim -c work.cpu -do "log -r /*; run 200ns; quit" 
-# Start time: 13:51:07 on Nov 21,2025
+# Compile of Banco_reg.vhd was successful.
+# Compile of controlUnit.v was successful.
+# Compile of cpu.v was successful.
+# Compile of divider.v was successful.
+# Compile of Instr_Reg.vhd was successful.
+# Compile of Memoria.vhd was successful.
+# Compile of multiplier.v was successful.
+# Compile of mux2x1.v was successful.
+# Compile of mux2x1_32.v was successful.
+# Compile of mux3x1.v was successful.
+# Compile of mux4x1.v was successful.
+# Compile of mux6x1.v was successful.
+# Compile of mux9x1.v was successful.
+# Compile of portaAND.v was successful.
+# Compile of portaOR.v was successful.
+# Compile of RegDesloc.vhd was successful.
+# Compile of Registrador.vhd was successful.
+# Compile of sEwithzero16x32.v was successful.
+# Compile of shift26x28.v was successful.
+# Compile of Shift32x32.v was successful.
+# Compile of signExtend1x32.v was successful.
+# Compile of signExtend16x32.v was successful.
+# Compile of ula32.vhd was successful.
+# 23 compiles, 0 failed with no errors.
+restart -f
 # Loading work.cpu
 # Loading work.controlUnit
 # Loading work.mux6x1
@@ -11,48 +34,33 @@
 # Loading work.mux9x1
 # Loading work.multiplier
 # Loading work.divider
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
 # Loading work.registrador(behavioral_arch)
-# Loading ieee.numeric_std(body)
-# Loading lpm.lpm_components
 # Loading work.ram_constants
 # Loading work.memoria(behavioral_arch)
-# Loading ieee.std_logic_arith(body)
-# Loading ieee.std_logic_unsigned(body)
-# Loading lpm.lpm_common_conversion(body)
-# Loading lpm.lpm_device_families(body)
-# Loading lpm.lpm_ram_dq(lpm_syn)
 # Loading work.instr_reg(behavioral_arch)
 # Loading work.banco_reg(behavioral_arch)
 # Loading work.ula32(behavioral)
 # Loading work.regdesloc(behavioral_arch)
-# log -r /*
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: felip  Hostname: MADRIX  ProcessID: 27940
-#           Attempting to use alternate WLF file "./wlftc9yyww".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftc9yyww
-#  run 200ns
+force -freeze sim:/cpu/clk 1 0, 0 {50 ps} -r 100
+run -continue
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Three
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Three
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Two
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Two
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_One
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_One
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM
 # ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/shifter
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Three
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Three
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Two
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Two
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_One
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_One
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Error: (vsim-86) Argument value -2147483647 is not in bounds of subtype NATURAL.
@@ -67,6 +75,21 @@
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
-#  quit
-# End time: 13:51:07 on Nov 21,2025, Elapsed time: 0:00:00
-# Errors: 4, Warnings: 14
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM_plus_One
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM_plus_One
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM_plus_Two
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM_plus_Two
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM_plus_Three
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM_plus_Three

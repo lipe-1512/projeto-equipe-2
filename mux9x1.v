@@ -12,6 +12,7 @@ module mux9x1 #(parameter WIDTH = 32) (
                  (sel == 4'b0101) ? in5 :
                  (sel == 4'b0110) ? in6 :
                  (sel == 4'b0111) ? in7 :
-                 in8;
+                 (sel == 4'b1000) ? in8  :
+                 {WIDTH{1'b0}};
 
 endmodule
