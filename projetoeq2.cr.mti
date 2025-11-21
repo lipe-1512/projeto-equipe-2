@@ -61,14 +61,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	mux6x1
 
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Instr_Reg.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Instr_Reg.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity Instr_Reg
--- Compiling architecture behavioral_arch of Instr_Reg
-
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/ula32.vhd}
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -78,42 +70,12 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity Ula32
 -- Compiling architecture behavioral of Ula32
 
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/RegDesloc.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/RegDesloc.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity RegDesloc
--- Compiling architecture behavioral_arch of RegDesloc
-
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module mux9x1
 
 Top level modules:
 	mux9x1
-
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Banco_reg.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Banco_reg.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity Banco_reg
--- Compiling architecture behavioral_arch of Banco_reg
-
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Compiling package ram_constants
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package LPM_COMPONENTS
--- Loading package ram_constants
--- Compiling entity Memoria
--- Compiling architecture behavioral_arch of Memoria
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/divider.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/divider.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -156,13 +118,5 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	mux2x1_32
-
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Registrador.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Registrador.vhd}
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity Registrador
--- Compiling architecture behavioral_arch of Registrador
 
 } {} {}}

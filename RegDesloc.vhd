@@ -101,11 +101,32 @@ END RegDesloc;
 -- Simulation
 ARCHITECTURE behavioral_arch OF RegDesloc IS
 	
-	signal temp		: STD_LOGIC_VECTOR(31 downto 0);	-- Vetor temporário
-	signal n_shift	: integer;							-- natural que possuirá o número de shifts a serem realizados. (v 1.4)
-	
+	signal temp		: STD_LOGIC_VECTOR(31 downto 0) := (others => '0'); 	-- Vetor temporário
+	signal n_shift	: integer := 0; 				-- inicializado para evitar valores indefinidos
+
+	-- Helper: checa se um std_logic_vector contém apenas '0' ou '1'
+	function is_binary_vector(v : STD_LOGIC_VECTOR) return boolean is
 	begin
-		n_shift <= TO_INTEGER(unsigned(N));
+		for i in v'range loop
+			if not (v(i) = '0' or v(i) = '1') then
+				return false;
+			end if;
+		end loop;
+		return true;
+	end function;
+
+	-- Conversão segura para inteiro, retorna dflt se houver bits inválidos
+	function safe_to_integer(v : STD_LOGIC_VECTOR; dflt : INTEGER := 0) return INTEGER is
+	begin
+		if is_binary_vector(v) then
+			return to_integer(unsigned(v));
+		else
+			return dflt;
+		end if;
+	end function;
+
+		begin
+			n_shift <= safe_to_integer(N, 0);
 
 	-- Clocked process
 	process (Clk, Reset)

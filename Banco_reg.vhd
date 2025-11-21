@@ -88,15 +88,38 @@ ARCHITECTURE behavioral_arch OF Banco_reg IS
 	TYPE 	REG_CLUSTER	is array 	(0 to 31)	of 	STD_LOGIC_VECTOR	(31 downto 0);
 	
 	-- Declarando banco de registradores
-	SIGNAL 	Cluster 	: 			REG_CLUSTER;	
+
+	-- Declarando banco de registradores
+	SIGNAL   Cluster     :           REG_CLUSTER; 
+
+	-- Helper: checa se um std_logic_vector contém apenas '0' ou '1'
+	function is_binary_vector(v : STD_LOGIC_VECTOR) return boolean is
+	begin
+		for i in v'range loop
+			if not (v(i) = '0' or v(i) = '1') then
+				return false;
+			end if;
+		end loop;
+		return true;
+	end function;
+
+	-- Conversão segura para inteiro, retorna dflt se houver bits inválidos
+	function safe_to_integer(v : STD_LOGIC_VECTOR; dflt : INTEGER := 0) return INTEGER is
+	begin
+		if is_binary_vector(v) then
+			return to_integer(unsigned(v));
+		else
+			return dflt;
+		end if;
+	end function;
+
 
 	BEGIN
-	
-	-- selecao do primeiro registrador
-	ReadData1 <= Cluster(to_integer(unsigned(ReadReg1)));		
+    
+	ReadData1 <= Cluster(safe_to_integer(ReadReg1, 0));        
 
-	-- selecao do segundo registrador 
-	ReadData2 <= Cluster(to_integer(unsigned(ReadReg2)));
+	-- selecao do segundo registrador (protegida)
+	ReadData2 <= Cluster(safe_to_integer(ReadReg2, 0));
 
 	--  Clocked Process
 	PROCESS (Clk,Reset)
@@ -109,7 +132,7 @@ ARCHITECTURE behavioral_arch OF Banco_reg IS
 ------------------------------------------ In�cio do processo relacionado ao clock 
 			ELSIF (Clk = '1' AND clk'EVENT) THEN
 				IF(RegWrite = '1') THEN
-					Cluster(to_integer(unsigned(WriteReg))) <= WriteData;
+					Cluster(safe_to_integer(WriteReg, 0)) <= WriteData;
 				END IF;
 			END IF;
 ------------------------------------------ Fim do processo relacionado ao clock 

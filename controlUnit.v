@@ -246,17 +246,26 @@ always @(*) begin
 
     case (state)
         reset_start: begin
-            reset_out = 1'b1; // Sinal para resetar registradores auxiliares (HI/LO, etc.)
+            reset_out = 1'b1; 
+            PC_wr = 1'b0;
+            ir_wr = 1'b0;
+            reg_wr = 1'b0;
+            wr_A = 1'b0;
+            wr_B = 1'b0;
+            Alu_out_wr = 1'b0;
+            EPC_wr = 1'b0;
+            mem_wr = 1'b0;
+            hi_wr = 1'b0;
+            Lo_wr = 1'b0;
         end
         
         fetch: begin
-            // Ciclo 1: ALUOut = PC + 4
             Alu_Src_A = 2'b00; // PC
             Alu_Src_B = 3'b001; // 4
             Alu_Op = 3'b001; // ADD
             Alu_out_wr = 1'b1;
             
-            // Ciclo 2: IR = Mem[PC], PC = ALUOut
+            
             IorD = 3'b000; // Endereço de instrução (PC)
             ir_wr = 1'b1;
             PC_Source = 3'b000; // ALUOut
