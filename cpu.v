@@ -63,29 +63,15 @@ wire [4:0] ir_25_21;
 wire [4:0] ir_20_16;
 wire [15:0] ir_15_0;
 
-reg [31:0] PCout = 0;
-reg [31:0] ALUOutout = 0;
+reg [31:0] PCout;
+reg [31:0] ALUOutout;
 reg [31:0] Memoryaddress = 0;
 
 always @(posedge clk or posedge reset) begin
     if (reset) begin
-        // Registradores principais ligados ao fluxo de endereço e dados
         PCout         <= 0;
         ALUOutout     <= 0;
         Memoryaddress <= 0;
-        Aout          <= 0;
-        Bout          <= 0;
-        HIout         <= 0;
-        LOout         <= 0;
-        EPCout        <= 0;
-        MDRout        <= 0;
-        IRfull        <= 0;
-        SignExtout    <= 0;
-        Shift26out    <= 0; 
-        ALUSrcAmuxout <= 0;
-        ALUSrcBmuxout <= 0;
-        Regsreaddata1 <= 0;
-        Regsreaddata2 <= 0;
        
     end
 end
