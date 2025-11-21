@@ -67,7 +67,7 @@ wire [15:0] ir_15_0;
 // Instanciação da Unidade de Controle - CORRIGIDA
 // =================================================================
 controlUnit u_control (
-    .clk(clk), .reset(reset),
+    .clk(clk), .reset(reset_out),
     .O(overflow_flag), .OpCode404_flag(OpCode404_flag), .div_zero(div_zero_flag),
     .OpCode(OpCode), .Funct(Funct),
     .zero(zero_flag), .neg(neg_flag), .lt(lt_flag), .gt(gt_flag), .et(et_flag),
@@ -109,40 +109,19 @@ controlUnit u_control (
 // =================================================================
     
     // --- Lógica do PC ---
-    // Power-on internal reset (POR): stays asserted at startup and is
-    // released by datapath condition — here: when PC will be updated
-    // with a new address (PC_enable && PC_in != PC_out). This removes
-    // any fixed time delay and makes reset release driven by the CPU flow.
-    reg por_reset = 1'b1;
-    always @(posedge clk) begin
-        if (reset)
-            por_reset <= 1'b1;
-        else if (PC_wr | (PCWriteCond & zero_flag)) begin
-            // compare next PC and current PC; if different, release POR
-            if (PC_in !== PC_out)
-                por_reset <= 1'b0;
-        end
-    end
-
-    // datapath_reset combines external reset, control-unit reset_out and POR
-    wire datapath_reset = reset | reset_out | por_reset;
     wire PC_enable = PC_wr | (PCWriteCond & zero_flag);
     // MUX para a fonte do PC: ALUOut (PC+4 ou Branch Target), Jump Target, EPC, Endereço de Exceção, A_out (JR)
     mux6x1 #(.WIDTH(32)) mux_pc_source ( .sel(PC_Source), .in0(ALUOut_out), .in1({PC_out[31:28], Shift26_out}), .in2(EPC_out), .in3(32'h000000FC), .in4(A_out), .in5(32'b0), .out(PC_in) );
     // Registrador PC
-    Registrador PC_reg (.Clk(clk), .Reset(datapath_reset), .Load(PC_enable), .Entrada(PC_in), .Saida(PC_out));
+    Registrador PC_reg (.Clk(clk), .Reset(reset), .Load(PC_enable), .Entrada(PC_in), .Saida(PC_out));
 
     // --- Lógica de Busca e Decodificação ---
     // MUX para o endereço de memória (PC ou ALUOut)
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
-    // Proteções temporárias: durante reset/carregamento inicial, asseguramos
-    // que a memória receba um endereço válido e não seja escrita.
-    wire [31:0] Memory_address_in = datapath_reset ? 32'b0 : Memory_address;
-    wire mem_wr_active = datapath_reset ? 1'b0 : mem_wr;
     // Memória (assumindo que Memoria.vhd lida com a escrita de byte/half-word via mem_wr_byte_enable)
-    Memoria main_memory (.Clock(clk), .Wr(mem_wr_active), .Address(Memory_address_in), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
+    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
     // Registrador de Instrução
-    Instr_Reg ir_reg (.Clk(clk), .Reset(datapath_reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
+    Instr_Reg ir_reg (.Clk(clk), .Reset(reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
                       .Instr31_26(ir_31_26), .Instr25_21(ir_25_21), .Instr20_16(ir_20_16), .Instr15_0(ir_15_0));
 
     assign IR_full = {ir_31_26, ir_25_21, ir_20_16, ir_15_0};
@@ -150,11 +129,11 @@ controlUnit u_control (
     // MUX para o registrador de leitura 1 (rs ou R29 para pilha)
     mux2x1 #(.WIDTH(5)) mux_read_reg1 (.sel(RegRs), .in0(rs), .in1(5'd29), .out(ReadReg1_final));
     // Banco de Registradores
-    Banco_reg reg_file (.Clk(clk), .Reset(datapath_reset), .RegWrite(reg_wr), .ReadReg1(ReadReg1_final), .ReadReg2(rt), .WriteReg(WriteReg_mux_out), .WriteData(Write_data_to_regs), .ReadData1(Regs_read_data1), .ReadData2(Regs_read_data2));
+    Banco_reg reg_file (.Clk(clk), .Reset(reset), .RegWrite(reg_wr), .ReadReg1(ReadReg1_final), .ReadReg2(rt), .WriteReg(WriteReg_mux_out), .WriteData(Write_data_to_regs), .ReadData1(Regs_read_data1), .ReadData2(Regs_read_data2));
     
     // --- Registradores A e B ---
-    Registrador A_reg (.Clk(clk), .Reset(datapath_reset), .Load(wr_A), .Entrada(Regs_read_data1), .Saida(A_out));
-    Registrador B_reg (.Clk(clk), .Reset(datapath_reset), .Load(wr_B), .Entrada(Regs_read_data2), .Saida(B_out));
+    Registrador A_reg (.Clk(clk), .Reset(reset), .Load(wr_A), .Entrada(Regs_read_data1), .Saida(A_out));
+    Registrador B_reg (.Clk(clk), .Reset(reset), .Load(wr_B), .Entrada(Regs_read_data2), .Saida(B_out));
     
     // --- MUX para o registrador de escrita (WriteReg) ---
     // Seleção: rt, rd, R29 (SP), R31 (RA)
@@ -178,7 +157,7 @@ controlUnit u_control (
     Ula32 alu (.A(ALUSrcA_mux_out), .B(ALUSrcB_mux_out), .Seletor(Alu_Op), .S(ALU_result), .Overflow(overflow_flag), .Negativo(neg_flag), .z(et_flag), .Igual(zero_flag), .Maior(gt_flag), .Menor(lt_flag));
     
     // --- Registrador ALUOut ---
-    Registrador ALUOut_reg (.Clk(clk), .Reset(datapath_reset), .Load(Alu_out_wr), .Entrada(ALU_result), .Saida(ALUOut_out));
+    Registrador ALUOut_reg (.Clk(clk), .Reset(reset), .Load(Alu_out_wr), .Entrada(ALU_result), .Saida(ALUOut_out));
     
     // --- Registrador MDR ---
     // MUX para o dado lido da memória (Load Word/Byte)
@@ -193,19 +172,19 @@ controlUnit u_control (
     mux2x1_32 mux_store_data (.sel(store_control[0]), .in0(B_out), .in1(Regs_read_data1), .out(store_data_to_mem)); // Simplificado, assumindo que a lógica de store_control é tratada em um módulo auxiliar
     
     // --- Registradores HI e LO ---
-    Registrador HI_reg (.Clk(clk), .Reset(datapath_reset), .Load(hi_wr), .Entrada(HI_in), .Saida(HI_out));
-    Registrador LO_reg (.Clk(clk), .Reset(datapath_reset), .Load(lo_wr), .Entrada(LO_in), .Saida(LO_out));
+    Registrador HI_reg (.Clk(clk), .Reset(reset), .Load(hi_wr), .Entrada(HI_in), .Saida(HI_out));
+    Registrador LO_reg (.Clk(clk), .Reset(reset), .Load(lo_wr), .Entrada(LO_in), .Saida(LO_out));
     
     // --- Multiplicador/Divisor ---
     multiplier mult (.clk(clk), .start(mult_start), .a(A_out), .b(B_out), .hi(HI_in), .lo(LO_in), .ready(mult_ready));
     divider div (.clk(clk), .start(div_start), .a(A_out), .b(B_out), .hi(HI_in), .lo(LO_in), .ready(div_ready), .div_zero(div_zero_flag));
     
     // --- Shifter ---
-    RegDesloc shifter (.Clk(clk), .Reset(datapath_reset), .Entrada(B_out), .N(shamt), .Shift(shift_control), .Saida(Shift_out));
+    RegDesloc shifter (.Clk(clk), .Reset(reset), .Entrada(B_out), .N(shamt), .Shift(shift_control), .Saida(Shift_out));
     
     // --- Lógica de Exceção ---
     // Registrador EPC
-    Registrador EPC_reg (.Clk(clk), .Reset(datapath_reset), .Load(EPC_wr), .Entrada(PC_out), .Saida(EPC_out));
+    Registrador EPC_reg (.Clk(clk), .Reset(reset), .Load(EPC_wr), .Entrada(PC_out), .Saida(EPC_out));
     // Lógica para OpCode404_flag (simplificada, deve ser mais robusta)
     assign OpCode404_flag = (OpCode == 6'b000000) ? ~(Funct == 6'b100000 || Funct == 6'b100010 || Funct == 6'b100100 || Funct == 6'b100101 || Funct == 6'b101010 || Funct == 6'b011000 || Funct == 6'b011010 || Funct == 6'b010000 || Funct == 6'b010010 || Funct == 6'b001000 || Funct == 6'b000000 || Funct == 6'b000011 || Funct == 6'b000101 || Funct == 6'b000110) : ~(OpCode == 6'b100011 || OpCode == 6'b100000 || OpCode == 6'b101011 || OpCode == 6'b101000 || OpCode == 6'b001000 || OpCode == 6'b001100 || OpCode == 6'b001101 || OpCode == 6'b001010 || OpCode == 6'b000100 || OpCode == 6'b000101 || OpCode == 6'b000010 || OpCode == 6'b000011);
     

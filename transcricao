@@ -22,7 +22,6 @@
 # Compile of signExtend16x32.v was successful.
 # Compile of ula32.vhd was successful.
 # 23 compiles, 0 failed with no errors.
-# Load canceled
 restart -f
 # Loading work.cpu
 # Loading work.controlUnit
@@ -44,12 +43,6 @@ restart -f
 # Loading work.regdesloc(behavioral_arch)
 force -freeze sim:/cpu/clk 1 0, 0 {50 ps} -r 100
 run -continue
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/shifter
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/reg_file
-# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
-#    Time: 0 ps  Iteration: 0  Instance: /cpu/reg_file
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM_plus_Three
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
@@ -66,6 +59,8 @@ run -continue
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM
 # ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory/MEM
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Error: (vsim-86) Argument value -2147483648 is not in bounds of subtype NATURAL.
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Error: (vsim-86) Argument value -2147483647 is not in bounds of subtype NATURAL.
@@ -79,6 +74,8 @@ run -continue
 # ** Error: (vsim-86) Argument value -2147483645 is not in bounds of subtype NATURAL.
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
 #    Time: 0 ps  Iteration: 0  Instance: /cpu/main_memory
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ps  Iteration: 3  Instance: /cpu/main_memory/MEM
