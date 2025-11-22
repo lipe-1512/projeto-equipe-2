@@ -68,6 +68,7 @@ parameter LW_SW_ADDR_state = 6'b010011;
 parameter LW_MEM_state = 6'b010100;
 parameter LW_WB_state = 6'b010101;
 parameter SW_MEM_state = 6'b010110;
+parameter LUI_WB_state = 6'b100000;
 
 // Estados de Jump
 parameter J_state = 6'b010111;
@@ -81,6 +82,7 @@ parameter POP_ADDR_state = 6'b011100;
 parameter POP_MEM_state = 6'b011101;
 parameter POP_WB_state = 6'b011110;
 parameter POP_SP_state = 6'b011111;
+
 
 // Opcodes
 parameter R_TYPE = 6'b000000;
@@ -96,6 +98,7 @@ parameter BEQ_OP = 6'b000100;
 parameter BNE_OP = 6'b000101;
 parameter J_OP = 6'b000010;
 parameter JAL_OP = 6'b000011;
+parameter LUI_OP = 6'b001111;
 
 // Funct para R-type
 parameter ADD_F = 6'b100000;
@@ -156,6 +159,7 @@ always @(posedge clk or posedge reset) begin
                         BEQ_OP, BNE_OP: state <= BEQ_BNE_state;
                         J_OP: state <= J_state;
                         JAL_OP: state <= JAL_state;
+                        LUI_OP: state <= LUI_WB_state;
                         default: state <= op404_state;
                     endcase
                 end
@@ -457,6 +461,13 @@ always @(*) begin
             // PC = PC + offset
             PC_Source = 3'b001; // PC + offset (ALUOut)
             PC_wr = 1'b1;
+        end
+
+        // Lógica para LUI
+        LUI_WB_state: begin 
+            DataSrc = 4'b0110; 
+            reg_dst = 2'b00; 
+            reg_wr = 1'b1; 
         end
         
         // Pilha (PUSH) - Reintegrado e Corrigido
