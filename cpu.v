@@ -63,24 +63,16 @@ wire [4:0] ir_25_21;
 wire [4:0] ir_20_16;
 wire [15:0] ir_15_0;
 
-reg [31:0] PCout;
-reg [31:0] ALUOutout;
-reg [31:0] Memoryaddress = 0;
+wire [31:0] Safe_Memory_Address;
 
-always @(posedge clk or posedge reset) begin
-    if (reset) begin
-        PCout         <= 0;
-        ALUOutout     <= 0;
-        Memoryaddress <= 0;
-       
-    end
-end
+assign Safe_Memory_Address = (reset !== 1'b1) ? 32'h00000000 : Memory_address;
+
 
 // =================================================================
 // Instanciação da Unidade de Controle - CORRIGIDA
 // =================================================================
 controlUnit u_control (
-    .clk(clk), .reset(reset_out),
+    .clk(clk), .reset(reset),
     .O(overflow_flag), .OpCode404_flag(OpCode404_flag), .div_zero(div_zero_flag),
     .OpCode(OpCode), .Funct(Funct),
     .zero(zero_flag), .neg(neg_flag), .lt(lt_flag), .gt(gt_flag), .et(et_flag),
@@ -132,7 +124,7 @@ controlUnit u_control (
     // MUX para o endereço de memória (PC ou ALUOut)
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
     // Memória (assumindo que Memoria.vhd lida com a escrita de byte/half-word via mem_wr_byte_enable)
-    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
+    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Safe_Memory_Address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
     // Registrador de Instrução
     Instr_Reg ir_reg (.Clk(clk), .Reset(reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
                       .Instr31_26(ir_31_26), .Instr25_21(ir_25_21), .Instr20_16(ir_20_16), .Instr15_0(ir_15_0));
