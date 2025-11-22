@@ -138,15 +138,15 @@ always @(posedge clk or posedge reset) begin
                     case (OpCode)
                         R_TYPE: begin
                             case (Funct)
-                                ADD_F, SUB_F, AND_F, OR_F, SLT_F: state <= R_EXEC_state;
+                                ADD_F, SUB_F, AND_F: state <= R_EXEC_state;
                                 MULT_F: state <= MULT_START_state;
                                 DIV_F: state <= DIV_START_state;
                                 MFHI_F: state <= MFHI_state;
                                 MFLO_F: state <= MFLO_state;
                                 JR_F: state <= JR_state;
                                 SLL_F, SRA_F: state <= SLL_SRA_EXEC_state;
-                                PUSH_F: state <= PUSH_ADDR_state; // Reintegrado
-                                POP_F: state <= POP_ADDR_state;   // Reintegrado
+                                PUSH_F: state <= PUSH_ADDR_state;
+                                POP_F: state <= POP_ADDR_state;
                                 default: state <= op404_state;
                             endcase
                         end

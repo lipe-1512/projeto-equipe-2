@@ -6,9 +6,18 @@ module cpu (
 // =================================================================
 // 1. Inicialização Automática (Power-On Reset)
 // =================================================================
-// Gera um pulso rápido apenas para garantir que a FSM vá para o estado 0.
-reg internal_por = 1'b1;
-initial #10 internal_por = 1'b0;
+// Gera um pulso de um ciclo de clock para garantir que a FSM vá para o estado 0.
+reg internal_por = 1'b0;
+reg por_done = 1'b0;
+
+always @(posedge clk) begin
+    if (!por_done) begin
+        internal_por <= 1'b1;
+        por_done <= 1'b1;
+    end else begin
+        internal_por <= 1'b0;
+    end
+end
 
 // O reset que vai para a ControlUnit é a soma do externo com o interno
 wire fsm_reset = (reset === 1'b1) | internal_por;
