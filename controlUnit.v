@@ -123,7 +123,7 @@ end
 // Lógica da FSM
 always @(posedge clk or posedge reset) begin
     if (reset) begin
-        state <= reset_start;
+        state = reset_start;
     end else begin
         // Lógica de transição de estado
         case (state)
