@@ -22,9 +22,9 @@ V:adHbk0Ym0TAKYW83J5Y[3
 !s100 hZ46CT_BzQl8j]02_Vf=o2
 Z7 OV;C;10.5b;63
 32
-Z8 !s110 1763842836
+Z8 !s110 1763846733
 !i10b 1
-Z9 !s108 1763842836.000000
+Z9 !s108 1763846733.000000
 Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Banco_reg.vhd|
 Z11 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Banco_reg.vhd|
 !i113 1
@@ -74,11 +74,11 @@ ncontrol@unit
 vcpu
 R8
 !i10b 1
-!s100 ]Chg034nO2Ai=WOjXhOgJ3
-I@`O<]CbRbe<iFenbN3[f^3
+!s100 8h8bKX]UNkCWQ=^z20YL71
+IZan<RcL@:_Q@dR5BZ9VT23
 R14
 R4
-w1763842730
+w1763846684
 8C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v
 FC:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v
 L0 1
@@ -365,7 +365,7 @@ R9
 R16
 R17
 vmux9x1
-Z37 !s110 1763842837
+R8
 !i10b 1
 !s100 `28h5a<OZ]hb8DT8XM3d63
 IdW9nZan93NRmmXM1e?`>43
@@ -379,14 +379,14 @@ R15
 r1
 !s85 0
 31
-Z38 !s108 1763842837.000000
+R9
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux9x1.v|
 !i113 1
 R16
 R17
 vportaAND
-R37
+R8
 !i10b 1
 !s100 ]6]QDAd5MoGNUe5aT27A`3
 INKTYgSiKF2c[Vd1>FE;bY1
@@ -400,7 +400,7 @@ R15
 r1
 !s85 0
 31
-R38
+R9
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaAND.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaAND.v|
 !i113 1
@@ -408,7 +408,7 @@ R16
 R17
 nporta@a@n@d
 vportaOR
-R37
+Z37 !s110 1763846734
 !i10b 1
 !s100 fB5l:Z>JmG1^;iE:42TB?1
 Ie^nKOhY?^mn19U1azJ9b`2
@@ -422,7 +422,7 @@ R15
 r1
 !s85 0
 31
-R38
+Z38 !s108 1763846734.000000
 !s107 C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaOR.v|
 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/portaOR.v|
 !i113 1
