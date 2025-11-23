@@ -268,12 +268,10 @@ always @(*) begin
             Alu_Src_B = 3'b001; // 4
             Alu_Op = 3'b001; // ADD
             Alu_out_wr = 1'b1;
-            
-            
             IorD = 3'b000; // Endereço de instrução (PC)
             ir_wr = 1'b1;
-            PC_Source = 3'b000; // ALUOut
-            PC_wr = 1'b1;
+            PC_Source = 3'b000; // ALUOut (PC+4)
+            PC_wr = 1'b1; // ← Deve estar em 1 para atualizar o PC
         end
         
         decode: begin
