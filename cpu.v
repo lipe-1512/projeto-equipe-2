@@ -1,22 +1,21 @@
 module cpu (
     input clk
-    // Input reset removido conforme solicitado
+    // Reset removido da entrada física para ser gerado internamente
 );
 
 // =================================================================
-// 1. GERENCIAMENTO DE RESET INTERNO (CORRIGIDO)
+// 1. GERENCIAMENTO DE RESET ROBUSTO
 // =================================================================
-// Usamos um contador para manter o reset ligado por alguns ciclos
-// isso garante que tudo inicialize antes de começar a rodar.
-reg [2:0] boot_counter = 3'b100; // 4 ciclos de reset
-reg internal_reset = 1'b1;       // Começa ligado (High)
+// Garante 4 ciclos de clock de reset para limpar registradores e PC
+reg [2:0] boot_counter = 3'b100; 
+reg internal_reset = 1'b1;       
 
 always @(posedge clk) begin
     if (boot_counter != 0) begin
         boot_counter <= boot_counter - 1;
-        internal_reset <= 1'b1; // Mantém Reset ligado
+        internal_reset <= 1'b1; // Mantém tudo parado
     end else begin
-        internal_reset <= 1'b0; // Desliga Reset (CPU começa a rodar)
+        internal_reset <= 1'b0; // Libera a CPU
     end
 end
 
@@ -48,6 +47,7 @@ wire [4:0] rt = IR_full[20:16];
 wire [4:0] rd = IR_full[15:11];
 wire [5:0] Funct = IR_full[5:0];
 wire [4:0] shamt = IR_full[10:6];
+// Flags da ULA
 wire zero_flag, overflow_flag, neg_flag, et_flag, gt_flag, lt_flag;
 wire div_zero_flag, OpCode404_flag; 
 wire [5:0] ir_31_26; wire [4:0] ir_25_21, ir_20_16; wire [15:0] ir_15_0;
@@ -56,7 +56,6 @@ wire [5:0] ir_31_26; wire [4:0] ir_25_21, ir_20_16; wire [15:0] ir_15_0;
 // 3. INSTANCIAÇÃO DOS MÓDULOS
 // =================================================================
 
-// Passamos o internal_reset para a unidade de controle
 controlUnit u_control (
     .clk(clk), .reset(internal_reset),
     .O(overflow_flag), .OpCode404_flag(OpCode404_flag), .div_zero(div_zero_flag),
@@ -83,20 +82,11 @@ controlUnit u_control (
 
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
     
-    // --- CORREÇÃO: PROTEÇÃO DE ENDEREÇO DA MEMÓRIA ---
-    // Evita erros de 'X' e 'Index out of range' durante o reset
+    // PROTEÇÃO DE MEMÓRIA: Força endereço 0 se estiver resetando ou se endereço for 'X'
     wire [31:0] protected_mem_addr;
-    assign protected_mem_addr = (internal_reset === 1'b1) ? 32'b0 : Memory_address;
+    assign protected_mem_addr = (internal_reset === 1'b1 || (^Memory_address === 1'bx)) ? 32'b0 : Memory_address;
     
-    // Conecta Memoria com endereço protegido
-    Memoria main_memory (
-        .Clock(clk), 
-        .Wr(mem_wr), 
-        .Address(protected_mem_addr), // Alterado para o fio protegido
-        .Datain(store_data_to_mem), 
-        .Dataout(Memory_read_data)
-    );
-    // -------------------------------------------------
+    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(protected_mem_addr), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
     
     Instr_Reg ir_reg (.Clk(clk), .Reset(internal_reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
                       .Instr31_26(ir_31_26), .Instr25_21(ir_25_21), .Instr20_16(ir_20_16), .Instr15_0(ir_15_0));
@@ -127,10 +117,21 @@ controlUnit u_control (
     
     mux2x1_32 mux_loaded_data (.sel(load_control[0]), .in0(Memory_read_data), .in1(loaded_data_final), .out(MDR_out)); 
     
-    // Mux de escrita no banco de registradores (Adicionado LUI no pino 6)
-    mux9x1 #(.WIDTH(32)) mux_write_data (.sel(DataSrc), .in0(ALUOut_out), .in1(MDR_out), .in2(HI_out), .in3(LO_out), .in4(PC_out + 32'd4), .in5(Shift_out), 
+    // =================================================================
+    // MUX DE ESCRITA (MODIFICADO PARA SLT)
+    // A entrada 7 recebe o bit 'lt_flag' da ULA estendido com zeros
+    // =================================================================
+    mux9x1 #(.WIDTH(32)) mux_write_data (.sel(DataSrc), 
+        .in0(ALUOut_out), 
+        .in1(MDR_out), 
+        .in2(HI_out), 
+        .in3(LO_out), 
+        .in4(PC_out + 32'd4), 
+        .in5(Shift_out), 
         .in6({IR_full[15:0],16'b0}), 
-        .in7(32'b0), .in8(32'b0), .out(Write_data_to_regs));
+        .in7({31'b0, lt_flag}), // <--- SLT RESULT AQUI!
+        .in8(32'b0), 
+        .out(Write_data_to_regs));
     
     mux2x1_32 mux_store_data (.sel(store_control[0]), .in0(B_out), .in1(Regs_read_data1), .out(store_data_to_mem)); 
     
@@ -144,44 +145,22 @@ controlUnit u_control (
     
     Registrador EPC_reg (.Clk(clk), .Reset(internal_reset), .Load(EPC_wr), .Entrada(PC_out), .Saida(EPC_out));
     
-    // =================================================================
-    // VALIDAÇÃO DE OPCODE (COM PROTEÇÃO CONTRA 'X')
-    // =================================================================
+    // PROTEÇÃO CONTRA OPCODE INVÁLIDO NO INÍCIO
     wire ir_has_x = (^IR_full === 1'bx);
 
-    // Instruções I-Type e J-Type válidas
-    wire valid_I_or_J = (OpCode == 6'b100011) || // LW
-                        (OpCode == 6'b100000) || // LB
-                        (OpCode == 6'b101011) || // SW
-                        (OpCode == 6'b101000) || // SB
-                        (OpCode == 6'b001000) || // ADDI
-                        (OpCode == 6'b001100) || // ANDI
-                        (OpCode == 6'b001101) || // ORI
-                        (OpCode == 6'b001010) || // SLTI
-                        (OpCode == 6'b000100) || // BEQ
-                        (OpCode == 6'b000101) || // BNE
-                        (OpCode == 6'b000010) || // J
-                        (OpCode == 6'b000011) || // JAL
-                        (OpCode == 6'b001111);   // LUI
+    wire valid_I_or_J = (OpCode == 6'b100011) || (OpCode == 6'b100000) || (OpCode == 6'b101011) || 
+                        (OpCode == 6'b101000) || (OpCode == 6'b001000) || (OpCode == 6'b001100) || 
+                        (OpCode == 6'b001101) || (OpCode == 6'b001010) || (OpCode == 6'b000100) || 
+                        (OpCode == 6'b000101) || (OpCode == 6'b000010) || (OpCode == 6'b000011) || 
+                        (OpCode == 6'b001111);
 
-    // Instruções R-Type válidas (checando Funct)
     wire valid_R = (OpCode == 6'b000000) &&
-                   ((Funct == 6'b100000) || // ADD
-                    (Funct == 6'b100010) || // SUB
-                    (Funct == 6'b100100) || // AND
-                    (Funct == 6'b100101) || // OR
-                    (Funct == 6'b101010) || // SLT
-                    (Funct == 6'b011000) || // MULT
-                    (Funct == 6'b011010) || // DIV
-                    (Funct == 6'b010000) || // MFHI
-                    (Funct == 6'b010010) || // MFLO
-                    (Funct == 6'b001000) || // JR
-                    (Funct == 6'b000000) || // SLL
-                    (Funct == 6'b000011) || // SRA
-                    (Funct == 6'b000101) || // PUSH
-                    (Funct == 6'b000110));  // POP
+                   ((Funct == 6'b100000) || (Funct == 6'b100010) || (Funct == 6'b100100) || 
+                    (Funct == 6'b100101) || (Funct == 6'b101010) || (Funct == 6'b011000) || 
+                    (Funct == 6'b011010) || (Funct == 6'b010000) || (Funct == 6'b010010) || 
+                    (Funct == 6'b001000) || (Funct == 6'b000000) || (Funct == 6'b000011) || 
+                    (Funct == 6'b000101) || (Funct == 6'b000110));
 
-    // Se a instrução tiver 'X', não dispara erro 404 (assume válida para não travar boot)
     assign OpCode404_flag = (ir_has_x) ? 1'b0 : ~(valid_R || valid_I_or_J);
 
 endmodule

@@ -91,9 +91,6 @@ parameter LB_OP = 6'b100000;
 parameter SW_OP = 6'b101011;
 parameter SB_OP = 6'b101000;
 parameter ADDI_OP = 6'b001000;
-parameter ANDI_OP = 6'b001100;
-parameter ORI_OP = 6'b001101;
-parameter SLTI_OP = 6'b001010;
 parameter BEQ_OP = 6'b000100;
 parameter BNE_OP = 6'b000101;
 parameter J_OP = 6'b000010;
@@ -104,7 +101,6 @@ parameter LUI_OP = 6'b001111;
 parameter ADD_F = 6'b100000;
 parameter SUB_F = 6'b100010;
 parameter AND_F = 6'b100100;
-parameter OR_F = 6'b100101;
 parameter SLT_F = 6'b101010;
 parameter MULT_F = 6'b011000;
 parameter DIV_F = 6'b011010;
@@ -155,7 +151,7 @@ always @(posedge clk or posedge reset) begin
                         end
                         LW_OP, LB_OP: state <= LW_SW_ADDR_state;
                         SW_OP, SB_OP: state <= LW_SW_ADDR_state;
-                        ADDI_OP, ANDI_OP, ORI_OP, SLTI_OP: state <= I_EXEC_state;
+                        ADDI_OP: state <= I_EXEC_state;
                         BEQ_OP, BNE_OP: state <= BEQ_BNE_state;
                         J_OP: state <= J_state;
                         JAL_OP: state <= JAL_state;
@@ -286,7 +282,7 @@ always @(*) begin
             PC_wr = 1'b1; // ← Deve estar em 1 para atualizar o PC
         end
         
-        // R-Type (ADD, SUB, AND, OR, SLT)
+        // R-Type (ADD, SUB, AND, SLT)
         R_EXEC_state: begin
             // ALUOut = A op B
             Alu_Src_A = 2'b01; // A
@@ -296,7 +292,6 @@ always @(*) begin
                 ADD_F: Alu_Op = 3'b001; // ADD
                 SUB_F: Alu_Op = 3'b010; // SUB
                 AND_F: Alu_Op = 3'b011; // AND
-                OR_F: Alu_Op = 3'b100; // OR
                 SLT_F: Alu_Op = 3'b101; // SLT
             endcase
             
@@ -367,7 +362,7 @@ always @(*) begin
             reg_wr = 1'b1;
         end
         
-        // I-Type (ADDI, ANDI, ORI, SLTI)
+        // I-Type (ADDI)
         I_EXEC_state: begin
             // ALUOut = A op SignExt(imm)
             Alu_Src_A = 2'b01; // A
@@ -375,9 +370,6 @@ always @(*) begin
             
             case (OpCode)
                 ADDI_OP: Alu_Op = 3'b001; // ADD
-                ANDI_OP: Alu_Op = 3'b011; // AND
-                ORI_OP: Alu_Op = 3'b100; // OR
-                SLTI_OP: Alu_Op = 3'b101; // SLT
             endcase
             
             Alu_out_wr = 1'b1;
