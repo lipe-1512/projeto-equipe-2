@@ -130,7 +130,7 @@ controlUnit u_control (
     
     // Mux de escrita no banco de registradores (Adicionado LUI no pino 6)
     mux9x1 #(.WIDTH(32)) mux_write_data (.sel(DataSrc), .in0(ALUOut_out), .in1(MDR_out), .in2(HI_out), .in3(LO_out), .in4(PC_out + 32'd4), .in5(Shift_out), 
-        .in6({16'b0, IR_full[15:0]}), 
+        .in6({IR_full[15:0],16'b0}), 
         .in7(32'b0), .in8(32'b0), .out(Write_data_to_regs));
     
     mux2x1_32 mux_store_data (.sel(store_control[0]), .in0(B_out), .in1(Regs_read_data1), .out(store_data_to_mem)); 
