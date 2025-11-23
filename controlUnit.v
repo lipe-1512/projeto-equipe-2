@@ -283,6 +283,7 @@ always @(*) begin
             Alu_Src_B = 3'b011; // SignExt << 2
             Alu_Op = 3'b001; // ADD
             Alu_out_wr = 1'b1;
+            PC_wr = 1'b1; // ← Deve estar em 1 para atualizar o PC
         end
         
         // R-Type (ADD, SUB, AND, OR, SLT)
