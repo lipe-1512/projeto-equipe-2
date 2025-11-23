@@ -4,23 +4,19 @@ module cpu (
 );
 
 // =================================================================
-// 1. GERENCIAMENTO DE RESET INTERNO (Posedge ON -> Negedge OFF)
+// 1. GERENCIAMENTO DE RESET INTERNO (CORRIGIDO)
 // =================================================================
-reg boot_flag = 1'b1;       // Indica fase de inicialização
-reg internal_reset = 1'b0;  // O sinal de reset efetivo
+// Usamos um contador para manter o reset ligado por alguns ciclos
+// isso garante que tudo inicialize antes de começar a rodar.
+reg [2:0] boot_counter = 3'b100; // 4 ciclos de reset
+reg internal_reset = 1'b1;       // Começa ligado (High)
 
-// Liga o Reset na primeira borda de subida
 always @(posedge clk) begin
-    if (boot_flag) begin
-        internal_reset <= 1'b1;
-    end
-end
-
-// Desliga o Reset na primeira borda de descida e encerra o boot
-always @(negedge clk) begin
-    if (boot_flag) begin
-        internal_reset <= 1'b0;
-        boot_flag <= 1'b0; // Trava para não resetar mais
+    if (boot_counter != 0) begin
+        boot_counter <= boot_counter - 1;
+        internal_reset <= 1'b1; // Mantém Reset ligado
+    end else begin
+        internal_reset <= 1'b0; // Desliga Reset (CPU começa a rodar)
     end
 end
 
@@ -57,16 +53,7 @@ wire div_zero_flag, OpCode404_flag;
 wire [5:0] ir_31_26; wire [4:0] ir_25_21, ir_20_16; wire [15:0] ir_15_0;
 
 // =================================================================
-// 3. PROTEÇÃO DE MEMÓRIA (Tempo 0 até fim do Reset)
-// =================================================================
-//wire [31:0] Safe_Memory_Address;
-
-// Se estivermos em boot (flag true) ou reset ativo, endereço é 0.
-// Isso protege contra 'X' no tempo 0 antes do primeiro clock.
-//assign Safe_Memory_Address = (boot_flag || internal_reset) ? 32'h00000000 : Memory_address;
-
-// =================================================================
-// 4. INSTANCIAÇÃO DOS MÓDULOS
+// 3. INSTANCIAÇÃO DOS MÓDULOS
 // =================================================================
 
 // Passamos o internal_reset para a unidade de controle
@@ -96,8 +83,20 @@ controlUnit u_control (
 
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
     
+    // --- CORREÇÃO: PROTEÇÃO DE ENDEREÇO DA MEMÓRIA ---
+    // Evita erros de 'X' e 'Index out of range' durante o reset
+    wire [31:0] protected_mem_addr;
+    assign protected_mem_addr = (internal_reset === 1'b1) ? 32'b0 : Memory_address;
+    
     // Conecta Memoria com endereço protegido
-    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
+    Memoria main_memory (
+        .Clock(clk), 
+        .Wr(mem_wr), 
+        .Address(protected_mem_addr), // Alterado para o fio protegido
+        .Datain(store_data_to_mem), 
+        .Dataout(Memory_read_data)
+    );
+    // -------------------------------------------------
     
     Instr_Reg ir_reg (.Clk(clk), .Reset(internal_reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
                       .Instr31_26(ir_31_26), .Instr25_21(ir_25_21), .Instr20_16(ir_20_16), .Instr15_0(ir_15_0));
@@ -145,7 +144,12 @@ controlUnit u_control (
     
     Registrador EPC_reg (.Clk(clk), .Reset(internal_reset), .Load(EPC_wr), .Entrada(PC_out), .Saida(EPC_out));
     
-    // OpCodes Válidos (Inclui LUI=15 e SB=40)
+    // =================================================================
+    // VALIDAÇÃO DE OPCODE (COM PROTEÇÃO CONTRA 'X')
+    // =================================================================
+    wire ir_has_x = (^IR_full === 1'bx);
+
+    // Instruções I-Type e J-Type válidas
     wire valid_I_or_J = (OpCode == 6'b100011) || // LW
                         (OpCode == 6'b100000) || // LB
                         (OpCode == 6'b101011) || // SW
@@ -160,6 +164,7 @@ controlUnit u_control (
                         (OpCode == 6'b000011) || // JAL
                         (OpCode == 6'b001111);   // LUI
 
+    // Instruções R-Type válidas (checando Funct)
     wire valid_R = (OpCode == 6'b000000) &&
                    ((Funct == 6'b100000) || // ADD
                     (Funct == 6'b100010) || // SUB
@@ -176,5 +181,7 @@ controlUnit u_control (
                     (Funct == 6'b000101) || // PUSH
                     (Funct == 6'b000110));  // POP
 
-    assign OpCode404_flag = ~(valid_R || valid_I_or_J);
+    // Se a instrução tiver 'X', não dispara erro 404 (assume válida para não travar boot)
+    assign OpCode404_flag = (ir_has_x) ? 1'b0 : ~(valid_R || valid_I_or_J);
+
 endmodule
