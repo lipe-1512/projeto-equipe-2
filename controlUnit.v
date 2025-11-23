@@ -211,6 +211,7 @@ always @(posedge clk or posedge reset) begin
             LW_MEM_state: state <= LW_WB_state;
             LW_WB_state: state <= fetch;
             SW_MEM_state: state <= fetch;
+            LUI_WB_state: state <= fetch;
             
             // Jump
             J_state: state <= fetch;
