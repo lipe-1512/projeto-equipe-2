@@ -47,7 +47,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	multiplier
 
-} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v}
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v} {0 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module cpu
+** Error: C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/cpu.v(28): (vlog-2730) Undefined variable: 'reset'.
+
+} {4.0 5.0} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux6x1.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module mux6x1
 
