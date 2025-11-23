@@ -59,11 +59,11 @@ wire [5:0] ir_31_26; wire [4:0] ir_25_21, ir_20_16; wire [15:0] ir_15_0;
 // =================================================================
 // 3. PROTEÇÃO DE MEMÓRIA (Tempo 0 até fim do Reset)
 // =================================================================
-wire [31:0] Safe_Memory_Address;
+//wire [31:0] Safe_Memory_Address;
 
 // Se estivermos em boot (flag true) ou reset ativo, endereço é 0.
 // Isso protege contra 'X' no tempo 0 antes do primeiro clock.
-assign Safe_Memory_Address = (boot_flag || internal_reset) ? 32'h00000000 : Memory_address;
+//assign Safe_Memory_Address = (boot_flag || internal_reset) ? 32'h00000000 : Memory_address;
 
 // =================================================================
 // 4. INSTANCIAÇÃO DOS MÓDULOS
@@ -97,7 +97,7 @@ controlUnit u_control (
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
     
     // Conecta Memoria com endereço protegido
-    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Safe_Memory_Address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
+    Memoria main_memory (.Clock(clk), .Wr(mem_wr), .Address(Memory_address), .Datain(store_data_to_mem), .Dataout(Memory_read_data));
     
     Instr_Reg ir_reg (.Clk(clk), .Reset(internal_reset), .Load_ir(ir_wr), .Entrada(Memory_read_data), 
                       .Instr31_26(ir_31_26), .Instr25_21(ir_25_21), .Instr20_16(ir_20_16), .Instr15_0(ir_15_0));
@@ -130,7 +130,7 @@ controlUnit u_control (
     
     // Mux de escrita no banco de registradores (Adicionado LUI no pino 6)
     mux9x1 #(.WIDTH(32)) mux_write_data (.sel(DataSrc), .in0(ALUOut_out), .in1(MDR_out), .in2(HI_out), .in3(LO_out), .in4(PC_out + 32'd4), .in5(Shift_out), 
-        .in6({IR_full[15:0], 16'b0}), 
+        .in6({16'b0, IR_full[15:0]}), 
         .in7(32'b0), .in8(32'b0), .out(Write_data_to_regs));
     
     mux2x1_32 mux_store_data (.sel(store_control[0]), .in0(B_out), .in1(Regs_read_data1), .out(store_data_to_mem)); 
