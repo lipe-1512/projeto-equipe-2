@@ -197,8 +197,8 @@ always @(posedge clk or posedge reset) begin
             
             // I-Type
             I_EXEC_state: begin
-                if (O && OpCode == ADDI_OP) state <= overflow_state;
-                else state <= I_WB_state;
+                //if (O && OpCode == ADDI_OP) state <= overflow_state;
+                /*else*/ state <= I_WB_state;
             end
             I_WB_state: state <= fetch;
             BEQ_BNE_state: state <= fetch;
