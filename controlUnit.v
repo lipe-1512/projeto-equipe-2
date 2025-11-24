@@ -138,6 +138,7 @@ always @(posedge clk or posedge reset) begin
                         R_TYPE: begin
                             case (Funct)
                                 ADD_F, SUB_F, AND_F: state <= R_EXEC_state;
+                                SLT_F: state <= R_EXEC_state;
                                 MULT_F: state <= MULT_START_state;
                                 DIV_F: state <= DIV_START_state;
                                 MFHI_F: state <= MFHI_state;
@@ -292,15 +293,16 @@ always @(*) begin
                 ADD_F: Alu_Op = 3'b001; // ADD
                 SUB_F: Alu_Op = 3'b010; // SUB
                 AND_F: Alu_Op = 3'b011; // AND
-                SLT_F: Alu_Op = 3'b101; // SLT
+                SLT_F: Alu_Op = 3'b010; // SLT
             endcase
             
             Alu_out_wr = 1'b1;
         end
         R_WB_state: begin
             // Reg[rd] = ALUOut
-            DataSrc = 4'b0000; // ALUOut
-            reg_dst = 2'b01; // rd
+            if (Funct == SLT_F) DataSrc = 4'b0111;
+            else DataSrc = 4'b0000;
+            reg_dst = 2'b01; 
             reg_wr = 1'b1;
         end
         

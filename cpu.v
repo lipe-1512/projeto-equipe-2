@@ -129,7 +129,7 @@ controlUnit u_control (
         .in4(PC_out + 32'd4), 
         .in5(Shift_out), 
         .in6({IR_full[15:0],16'b0}), 
-        .in7({31'b0, lt_flag}), // <--- SLT RESULT AQUI!
+        .in7({31'b0, lt_flag}), 
         .in8(32'b0), 
         .out(Write_data_to_regs));
     
