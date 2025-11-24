@@ -1,21 +1,20 @@
 module cpu (
     input clk
-    // Reset removido da entrada física para ser gerado internamente
 );
 
 // =================================================================
-// 1. GERENCIAMENTO DE RESET ROBUSTO
+// 1. RESET E BOOT (Mantido para garantir inicialização limpa)
 // =================================================================
-// Garante 4 ciclos de clock de reset para limpar registradores e PC
-reg [2:0] boot_counter = 3'b100; 
+//reg [2:0] boot_counter = 3'b100; 
+reg boot_counter = 1'b1;
 reg internal_reset = 1'b1;       
 
 always @(posedge clk) begin
     if (boot_counter != 0) begin
         boot_counter <= boot_counter - 1;
-        internal_reset <= 1'b1; // Mantém tudo parado
+        internal_reset <= 1'b1; 
     end else begin
-        internal_reset <= 1'b0; // Libera a CPU
+        internal_reset <= 1'b0; 
     end
 end
 
@@ -53,7 +52,24 @@ wire div_zero_flag, OpCode404_flag;
 wire [5:0] ir_31_26; wire [4:0] ir_25_21, ir_20_16; wire [15:0] ir_15_0;
 
 // =================================================================
-// 3. INSTANCIAÇÃO DOS MÓDULOS
+// 3. O "PULO DO GATO" PARA O SLT
+// =================================================================
+// Criamos um registrador dedicado para salvar o resultado da comparação
+// no mesmo momento em que o ALUOut salva o resultado numérico.
+reg slt_reg;
+
+always @(posedge clk) begin
+    if (internal_reset) begin
+        slt_reg <= 1'b0;
+    end else if (Alu_out_wr) begin 
+        // Se a ALU está escrevendo um resultado, salvamos a flag 'lt' também.
+        // Isso garante que no próximo ciclo (WB), o valor esteja estável.
+        slt_reg <= lt_flag; 
+    end
+end
+
+// =================================================================
+// 4. INSTANCIAÇÃO DOS MÓDULOS
 // =================================================================
 
 controlUnit u_control (
@@ -82,7 +98,7 @@ controlUnit u_control (
 
     mux2x1_32 mux_mem_addr (.sel(IorD[0]), .in0(PC_out), .in1(ALUOut_out), .out(Memory_address));
     
-    // PROTEÇÃO DE MEMÓRIA: Força endereço 0 se estiver resetando ou se endereço for 'X'
+    // Proteção de Memória
     wire [31:0] protected_mem_addr;
     assign protected_mem_addr = (internal_reset === 1'b1 || (^Memory_address === 1'bx)) ? 32'b0 : Memory_address;
     
@@ -118,8 +134,8 @@ controlUnit u_control (
     mux2x1_32 mux_loaded_data (.sel(load_control[0]), .in0(Memory_read_data), .in1(loaded_data_final), .out(MDR_out)); 
     
     // =================================================================
-    // MUX DE ESCRITA (MODIFICADO PARA SLT)
-    // A entrada 7 recebe o bit 'lt_flag' da ULA estendido com zeros
+    // MUX DE ESCRITA MODIFICADO
+    // Entrada 7 agora recebe o nosso registrador 'slt_reg' estendido
     // =================================================================
     mux9x1 #(.WIDTH(32)) mux_write_data (.sel(DataSrc), 
         .in0(ALUOut_out), 
@@ -129,7 +145,7 @@ controlUnit u_control (
         .in4(PC_out + 32'd4), 
         .in5(Shift_out), 
         .in6({IR_full[15:0],16'b0}), 
-        .in7({31'b0, lt_flag}), 
+        .in7({31'b0, slt_reg}),
         .in8(32'b0), 
         .out(Write_data_to_regs));
     
@@ -145,7 +161,7 @@ controlUnit u_control (
     
     Registrador EPC_reg (.Clk(clk), .Reset(internal_reset), .Load(EPC_wr), .Entrada(PC_out), .Saida(EPC_out));
     
-    // PROTEÇÃO CONTRA OPCODE INVÁLIDO NO INÍCIO
+    // Validação de Opcode
     wire ir_has_x = (^IR_full === 1'bx);
 
     wire valid_I_or_J = (OpCode == 6'b100011) || (OpCode == 6'b100000) || (OpCode == 6'b101011) || 
