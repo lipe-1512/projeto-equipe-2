@@ -6,17 +6,19 @@ module cpu (
 // 1. RESET E BOOT (Mantido para garantir inicialização limpa)
 // =================================================================
 //reg [2:0] boot_counter = 3'b100; 
-reg boot_counter = 1'b1;
+reg boot_counter = 1'b1; 
 reg internal_reset = 1'b1;       
 
 always @(posedge clk) begin
     if (boot_counter != 0) begin
-        boot_counter <= boot_counter - 1;
+        // Conta 1 ciclo e libera
+        boot_counter <= 0;
         internal_reset <= 1'b1; 
     end else begin
+        // Processador liberado para rodar
         internal_reset <= 1'b0; 
     end
-end
+endc
 
 // =================================================================
 // 2. FIOS E SINAIS
