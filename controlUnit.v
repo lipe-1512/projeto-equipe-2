@@ -269,7 +269,7 @@ always @(*) begin
             IorD = 3'b000; // Endereço de instrução (PC)
             ir_wr = 1'b1;
             PC_Source = 3'b000; // ALUOut (PC+4)
-            PC_wr = 1'b0; // ← Deve estar em 1 para atualizar o PC
+            PC_wr = 1'b1; // ← Deve estar em 1 para atualizar o PC
         end
         
         decode: begin
@@ -279,7 +279,7 @@ always @(*) begin
             Alu_Src_A = 2'b00; // PC
             Alu_Src_B = 3'b011; // SignExt << 2
             Alu_Op = 3'b001; // ADD
-            Alu_out_wr = 1'b0;
+            Alu_out_wr = 1'b1;
             PC_wr = 1'b0; // ← Deve estar em 1 para atualizar o PC
         end
         
