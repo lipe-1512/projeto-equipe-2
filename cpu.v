@@ -18,7 +18,7 @@ always @(posedge clk) begin
         // Processador liberado para rodar
         internal_reset <= 1'b0; 
     end
-endc
+end
 
 // =================================================================
 // 2. FIOS E SINAIS
