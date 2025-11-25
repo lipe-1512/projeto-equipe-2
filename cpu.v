@@ -3,17 +3,17 @@ module cpu (
 );
 
 // =================================================================
-// 1. RESET E BOOT (Mantido para garantir inicialização limpa)
+// 1. RESET E BOOT (Corrigido para 1 ciclo)
 // =================================================================
-//reg [2:0] boot_counter = 3'b100; 
-reg boot_counter = 1'b1; 
 reg internal_reset = 1'b1;       
+reg first_cycle = 1'b1; // Novo sinal para rastrear o primeiro ciclo
 
 always @(posedge clk) begin
-    if (boot_counter != 0) begin
-        // Conta 1 ciclo e libera
-        boot_counter <= 0;
-        internal_reset <= 1'b1; 
+    if (first_cycle) begin
+        // No primeiro ciclo, o reset está ativo.
+        // Agendamos a desativação do reset e a flag de primeiro ciclo.
+        internal_reset <= 1'b0; 
+        first_cycle <= 1'b0;
     end else begin
         // Processador liberado para rodar
         internal_reset <= 1'b0; 
@@ -148,7 +148,7 @@ controlUnit u_control (
         .in5(Shift_out), 
         .in6({IR_full[15:0],16'b0}), 
         .in7({31'b0, slt_reg}),
-        .in8(32'b0), 
+        .in8(32'd227), // NOVO: in8 (DataSrc=4'b1000) = 227 para inicialização do SP
         .out(Write_data_to_regs));
     
     mux2x1_32 mux_store_data (.sel(store_control[0]), .in0(B_out), .in1(Regs_read_data1), .out(store_data_to_mem)); 

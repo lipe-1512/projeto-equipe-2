@@ -45,6 +45,7 @@ parameter decode = 6'b000010;
 parameter op404_state = 6'b000011;
 parameter overflow_state = 6'b000100;
 parameter zero_div_state = 6'b000101;
+parameter exception_fetch = 6'b111111; // NOVO ESTADO PARA TRANSIÇÃO DE EXCEÇÃO
 
 // Estados de instrução R-type
 parameter R_EXEC_state = 6'b000110;
@@ -226,9 +227,12 @@ always @(posedge clk or posedge reset) begin
             POP_SP_state: state <= fetch;
             
             // Exceções
-            op404_state: state <= fetch;
-            overflow_state: state <= fetch;
-            zero_div_state: state <= fetch;
+op404_state: state <= exception_fetch; // Transiciona para o novo estado
+	        overflow_state: state <= exception_fetch; // Transiciona para o novo estado
+	        zero_div_state: state <= exception_fetch; // Transiciona para o novo estado
+	        
+	        // NOVO ESTADO
+	        exception_fetch: state <= fetch;
             
             default: state <= fetch;
         endcase
@@ -247,19 +251,24 @@ always @(*) begin
     reset_out = 1'b0; shift_control = 3'b000; DataSrc = 4'b0000; RegRs = 1'b0; mem_wr_byte_enable = 4'b0000;
 
     case (state)
-        reset_start: begin
-            reset_out = 1'b1; 
-            PC_wr = 1'b0;
-            ir_wr = 1'b0;
-            reg_wr = 1'b0;
-            wr_A = 1'b0;
-            wr_B = 1'b0;
-            Alu_out_wr = 1'b0;
-            EPC_wr = 1'b0;
-            mem_wr = 1'b0;
-            hi_wr = 1'b0;
-            Lo_wr = 1'b0;
-        end
+reset_start: begin
+	            reset_out = 1'b1; 
+	            PC_wr = 1'b0;
+	            ir_wr = 1'b0;
+	            
+	            // Inicialização do SP (R29) para 227
+	            reg_wr = 1'b1;      // Habilita escrita no banco de registradores
+	            reg_dst = 2'b10;    // R29
+	            DataSrc = 4'b1000;  // Valor constante 227 (in8 do mux_write_data em cpu.v)
+	            
+	            wr_A = 1'b0;
+	            wr_B = 1'b0;
+	            Alu_out_wr = 1'b0;
+	            EPC_wr = 1'b0;
+	            mem_wr = 1'b0;
+	            hi_wr = 1'b0;
+	            Lo_wr = 1'b0;
+	        end
         
         fetch: begin
             Alu_Src_A = 2'b00; // PC
@@ -279,8 +288,8 @@ always @(*) begin
             Alu_Src_A = 2'b00; // PC
             Alu_Src_B = 3'b011; // SignExt << 2
             Alu_Op = 3'b001; // ADD
-            Alu_out_wr = 1'b1;
-            PC_wr = 1'b0; // ← Deve estar em 1 para atualizar o PC
+Alu_out_wr = 1'b1;
+	            // PC_wr = 1'b0; // Removido: PC_wr deve ser 1'b1 (do fetch) para que o PC seja atualizado para PC+4
         end
         
         // R-Type (ADD, SUB, AND, SLT)
@@ -533,13 +542,17 @@ always @(*) begin
             PC_Source = 3'b011; // Endereço de exceção (0x000000FC)
             PC_wr = 1'b1;
         end
-        zero_div_state: begin
-            EPC_wr = 1'b1;
-            cause_control = 2'b01; // Divisão por Zero
-            PC_Source = 3'b011; // Endereço de exceção (0x000000FC)
-            PC_wr = 1'b1;
-        end
-    endcase
+zero_div_state: begin
+	            EPC_wr = 1'b1;
+	            cause_control = 2'b01; // Divisão por Zero
+	            PC_Source = 3'b011; // Endereço de exceção (0x000000FC)
+	            PC_wr = 1'b1;
+	        end
+	        
+	        exception_fetch: begin
+	            // Nenhum sinal de controle ativo, apenas transiciona para fetch
+	        end
+	    endcase
 end
 
 endmodule
