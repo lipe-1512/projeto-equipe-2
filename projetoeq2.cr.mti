@@ -110,6 +110,18 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity Banco_reg
 -- Compiling architecture behavioral_arch of Banco_reg
 
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria.vhd} {1 {vcom -work work -2002 -explicit -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/Memoria.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling package ram_constants
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package LPM_COMPONENTS
+-- Loading package ram_constants
+-- Compiling entity Memoria
+-- Compiling architecture behavioral_arch of Memoria
+
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/divider.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/divider.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module divider
@@ -137,6 +149,13 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	sEwithzero16x32
+
+} {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/controlUnit.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/controlUnit.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module controlUnit
+
+Top level modules:
+	controlUnit
 
 } {} {}} {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v} {1 {vlog -work work -stats=none {C:/Users/felip/OneDrive/Documents/faculdade/infra hard/projeto/projeto-equipe-2/mux2x1_32.v}
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
